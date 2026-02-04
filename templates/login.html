@@ -33,7 +33,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #667eea 100%);
+            background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 50%, #2563eb 100%);
             background-size: 200% 200%;
             animation: gradientShift 15s ease infinite;
             opacity: 0.15;
@@ -54,8 +54,8 @@
             right: 0;
             bottom: 0;
             background-image:
-                linear-gradient(rgba(102, 126, 234, 0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(102, 126, 234, 0.03) 1px, transparent 1px);
+                linear-gradient(rgba(37, 99, 235, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(37, 99, 235, 0.03) 1px, transparent 1px);
             background-size: 50px 50px;
             animation: gridMove 20s linear infinite;
         }
@@ -70,15 +70,15 @@
             backdrop-filter: blur(20px);
             border-radius: 16px;
             box-shadow:
-                0 0 0 1px rgba(102, 126, 234, 0.1),
+                0 0 0 1px rgba(37, 99, 235, 0.1),
                 0 20px 60px rgba(0, 0, 0, 0.5),
-                0 0 80px rgba(102, 126, 234, 0.15);
+                0 0 80px rgba(37, 99, 235, 0.15);
             padding: 50px 40px;
             width: 100%;
             max-width: 440px;
             position: relative;
             z-index: 1;
-            border: 1px solid rgba(102, 126, 234, 0.2);
+            border: 1px solid rgba(37, 99, 235, 0.2);
         }
 
         .login-container::before {
@@ -88,7 +88,7 @@
             left: 0;
             right: 0;
             height: 4px;
-            background: linear-gradient(90deg, #667eea 0%, #764ba2 50%, #667eea 100%);
+            background: linear-gradient(90deg, #2563eb 0%, #1d4ed8 50%, #2563eb 100%);
             background-size: 200% 100%;
             animation: shimmer 3s linear infinite;
             border-radius: 16px 16px 0 0;
@@ -108,7 +108,7 @@
             width: 80px;
             height: 80px;
             margin-bottom: 12px;
-            filter: drop-shadow(0 0 20px rgba(102, 126, 234, 0.5));
+            filter: drop-shadow(0 0 20px rgba(37, 99, 235, 0.5));
             animation: float 3s ease-in-out infinite;
         }
 
@@ -118,7 +118,7 @@
         }
 
         .login-header h1 {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: #2563eb;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -163,7 +163,7 @@
         .form-group input {
             width: 100%;
             padding: 14px 14px 14px 44px;
-            border: 1px solid rgba(102, 126, 234, 0.2);
+            border: 1px solid rgba(37, 99, 235, 0.2);
             border-radius: 8px;
             font-size: 15px;
             transition: all 0.3s;
@@ -177,15 +177,15 @@
 
         .form-group input:focus {
             outline: none;
-            border-color: #667eea;
+            border-color: #2563eb;
             background: rgba(22, 27, 34, 0.9);
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.15);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
         }
 
         .btn {
             width: 100%;
             padding: 14px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: #2563eb;
             color: white;
             border: none;
             border-radius: 8px;
@@ -193,7 +193,7 @@
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s;
-            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+            box-shadow: 0 4px 15px rgba(37, 99, 235, 0.4);
             position: relative;
             overflow: hidden;
         }
@@ -215,7 +215,7 @@
 
         .btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.5);
+            box-shadow: 0 6px 20px rgba(37, 99, 235, 0.5);
         }
 
         .btn:active {
@@ -242,14 +242,14 @@
         }
 
         .register-link a {
-            color: #667eea;
+            color: #2563eb;
             text-decoration: none;
             font-weight: 600;
             transition: color 0.3s;
         }
 
         .register-link a:hover {
-            color: #764ba2;
+            color: #1d4ed8;
             text-decoration: underline;
         }
 
@@ -266,7 +266,7 @@
             top: 50%;
             width: 100%;
             height: 1px;
-            background: rgba(102, 126, 234, 0.2);
+            background: rgba(37, 99, 235, 0.2);
         }
 
         .divider span {
@@ -362,7 +362,7 @@
 
             <div class="form-group" style="margin-bottom: 20px;">
                 <label style="display: flex; align-items: center; cursor: pointer; font-weight: normal;">
-                    <input type="checkbox" name="remember_me" value="1" style="margin-right: 8px; width: 18px; height: 18px; cursor: pointer; accent-color: #667eea;">
+                    <input type="checkbox" name="remember_me" value="1" style="margin-right: 8px; width: 18px; height: 18px; cursor: pointer; accent-color: #2563eb;">
                     <span style="font-size: 14px; color: #8b949e;">记住我（7天内自动登录）</span>
                 </label>
             </div>

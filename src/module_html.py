@@ -143,18 +143,19 @@ def enhance_fund_tab_content(content, shares_map=None):
         </div>
     """
 
-    # 添加操作按钮面板
-    operations_panel = """
-        <div class="fund-operations">
-            <div class="operation-group">
-                <button class="btn btn-success" onclick="openFundSelectionModal('hold')"><i class="ri-star-line"></i> 标记持有</button>
-                <button class="btn btn-secondary" onclick="openFundSelectionModal('unhold')"><i class="ri-star-off-line"></i> 取消持有</button>
-                <button class="btn btn-info" onclick="openFundSelectionModal('sector')"><i class="ri-price-tag-3-line"></i> 标注板块</button>
-                <button class="btn btn-warning" onclick="openFundSelectionModal('unsector')"><i class="ri-price-tag-2-line"></i> 删除板块</button>
-                <button class="btn btn-danger" onclick="openFundSelectionModal('delete')"><i class="ri-delete-bin-line"></i> 删除基金</button>
-            </div>
-        </div>
-    """
+    # 添加操作按钮面板 - 已移至每个基金行上
+    # operations_panel = """
+    #     <div class="fund-operations">
+    #         <div class="operation-group">
+    #             <button class="btn btn-success" onclick="openFundSelectionModal('hold')"><i class="ri-star-line"></i> 标记持有</button>
+    #             <button class="btn btn-secondary" onclick="openFundSelectionModal('unhold')"><i class="ri-star-off-line"></i> 取消持有</button>
+    #             <button class="btn btn-info" onclick="openFundSelectionModal('sector')"><i class="ri-price-tag-3-line"></i> 标注板块</button>
+    #             <button class="btn btn-warning" onclick="openFundSelectionModal('unsector')"><i class="ri-price-tag-2-line"></i> 删除板块</button>
+    #             <button class="btn btn-danger" onclick="openFundSelectionModal('delete')"><i class="ri-delete-bin-line"></i> 删除基金</button>
+    #         </div>
+    #     </div>
+    # """
+    operations_panel = ""  # 操作按钮已移至每个基金行上
 
     # 简化的添加基金输入框
     add_fund_area = """
@@ -164,10 +165,10 @@ def enhance_fund_tab_content(content, shares_map=None):
         </div>
     """
 
-    # 在"近30天"列后添加"持仓份额"列
+    # 在"近30天"列后添加"持仓份额"和"操作"列
     content = re.sub(
         r"(<th[^>]*>近30天</th>)",
-        r"\1\n                    <th>持仓份额</th>",
+        r"\1\n                    <th>持仓份额</th>\n                    <th style=\"text-align: center;\">操作</th>",
         content,
         count=1,
     )
@@ -197,7 +198,34 @@ def enhance_fund_tab_content(content, shares_map=None):
                 button_text = "设置"
                 button_color = "#3b82f6"  # 蓝色
 
-            # 在行末添加份额设置按钮（在</tr>之前）- 去掉最后的</tr>，添加按钮后再加回
+            operation_buttons = f"""
+                <button onclick="event.stopPropagation(); window.selectedFundCode='{fund_code}'; openFundSelectionModal('hold');" 
+                        title="标记持有" 
+                        class="fund-row-ops-btn" style="background: #10b981;">
+                    <i class="ri-star-line"></i>
+                </button>
+                <button onclick="event.stopPropagation(); window.selectedFundCode='{fund_code}'; openFundSelectionModal('unhold');" 
+                        title="取消持有" 
+                        class="fund-row-ops-btn" style="background: #6b7280;">
+                    <i class="ri-star-off-line"></i>
+                </button>
+                <button onclick="event.stopPropagation(); window.selectedFundCode='{fund_code}'; openFundSelectionModal('sector');" 
+                        title="标注板块" 
+                        class="fund-row-ops-btn" style="background: #3b82f6;">
+                    <i class="ri-price-tag-3-line"></i>
+                </button>
+                <button onclick="event.stopPropagation(); window.selectedFundCode='{fund_code}'; openFundSelectionModal('unsector');" 
+                        title="删除板块" 
+                        class="fund-row-ops-btn" style="background: #f59e0b;">
+                    <i class="ri-price-tag-2-line"></i>
+                </button>
+                <button onclick="event.stopPropagation(); window.selectedFundCode='{fund_code}'; openFundSelectionModal('delete');" 
+                        title="删除基金" 
+                        class="fund-row-ops-btn" style="background: #ef4444;">
+                    <i class="ri-delete-bin-line"></i>
+                </button>
+            """
+
             row_with_shares = (
                 row_content[:-5]
                 + f"""<td>
@@ -206,6 +234,9 @@ def enhance_fund_tab_content(content, shares_map=None):
                         style="padding: 6px 12px; background: {button_color}; color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 13px; transition: all 0.2s;">
                     {button_text}
                 </button>
+            </td>
+            <td style="text-align: center; white-space: nowrap;">
+                {operation_buttons}
             </td></tr>"""
             )
             return row_with_shares
@@ -5007,7 +5038,7 @@ def get_portfolio_page_html(
                 <div class="chart-card-header" style="padding: 12px 15px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center;">
                     <h3 id="timingChartTitle" style="margin: 0; font-size: 1rem; color: var(--text-main);"><i class="ri-time-line"></i> 上证分时</h3>
                 </div>
-                <div class="chart-card-content" style="padding: 15px; height: 300px;">
+                <div class="chart-card-content" style="padding: 15px; height: 180px;">
                     <canvas id="timingChart"></canvas>
                 </div>
             </div>
