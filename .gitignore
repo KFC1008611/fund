@@ -9,3 +9,5 @@ dist/
 
 __pycache__
 .sisyphus
+.DS_Store
+**/.DS_Store

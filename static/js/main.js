@@ -16,6 +16,13 @@
         const sidebarToggle = document.getElementById('sidebarToggle');
 
         if (sidebar && sidebarToggle && sidebar.id === 'sidebar') {
+            const savedLegacyState = localStorage.getItem('legacySidebarState');
+            if (savedLegacyState === 'expanded') {
+                sidebar.classList.remove('collapsed');
+                sidebarToggle.textContent = '◀';
+                sidebarToggle.title = '折叠';
+            }
+
             sidebarToggle.addEventListener('click', function(e) {
                 e.preventDefault();
                 e.stopPropagation();
@@ -24,6 +31,7 @@
                 const isCollapsed = sidebar.classList.contains('collapsed');
                 sidebarToggle.textContent = isCollapsed ? '▶' : '◀';
                 sidebarToggle.title = isCollapsed ? '展开' : '折叠';
+                localStorage.setItem('legacySidebarState', isCollapsed ? 'collapsed' : 'expanded');
             });
         }
     });

@@ -19,6 +19,13 @@ class SidebarNavigation {
     this.summaryBar = document.getElementById('summaryBar');
     this.contentSections = document.querySelectorAll('.content-section');
 
+    // Restore sidebar state from localStorage
+    // Restore sidebar state from localStorage
+    const savedState = localStorage.getItem('sidebarState');
+    if (savedState === 'expanded' && this.sidebar) {
+      this.sidebar.classList.add('expanded');
+    }
+
     // Mapping from section ID to actual DOM element ID
     this.sectionIdMap = {
       'news': 'kx',
@@ -178,6 +185,8 @@ class SidebarNavigation {
   toggleSidebar() {
     if (this.sidebar) {
       this.sidebar.classList.toggle('expanded');
+      const isExpanded = this.sidebar.classList.contains('expanded');
+      localStorage.setItem('sidebarState', isExpanded ? 'expanded' : 'collapsed');
     }
   }
 
