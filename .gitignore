@@ -6,3 +6,6 @@ build/
 CLAUDE.md
 cache/fund_data.db
 dist/
+
+__pycache__
+.sisyphus

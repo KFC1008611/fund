@@ -29,11 +29,11 @@ urllib3.util.ssl_.DEFAULT_CIPHERS = ":".join(
     [
         "ECDHE+AESGCM",
         "ECDHE+CHACHA20",
-        'ECDHE-RSA-AES128-SHA',
-        'ECDHE-RSA-AES256-SHA',
+        "ECDHE-RSA-AES128-SHA",
+        "ECDHE-RSA-AES256-SHA",
         "RSA+AESGCM",
-        'AES128-SHA',
-        'AES256-SHA',
+        "AES128-SHA",
+        "AES256-SHA",
     ]
 )
 tabulate.PRESERVE_WHITESPACE = True
@@ -48,32 +48,202 @@ class LanFund:
 
     # 板块分类映射
     MAJOR_CATEGORIES = {
-        "科技": ["人工智能", "半导体", "云计算", "5G", "光模块", "CPO", "F5G", "通信设备", "PCB", "消费电子",
-                 "计算机", "软件开发", "信创", "网络安全", "IT服务", "国产软件", "计算机设备", "光通信",
-                 "算力", "脑机接口", "通信", "电子", "光学光电子", "元件", "存储芯片", "第三代半导体",
-                 "光刻胶", "电子化学品", "LED", "毫米波", "智能穿戴", "东数西算", "数据要素", "国资云",
-                 "Web3.0", "AIGC", "AI应用", "AI手机", "AI眼镜", "DeepSeek", "TMT", "科技"],
-        "医药健康": ["医药生物", "医疗器械", "生物疫苗", "CRO", "创新药", "精准医疗", "医疗服务", "中药",
-                     "化学制药", "生物制品", "基因测序", "超级真菌"],
-        "消费": ["食品饮料", "白酒", "家用电器", "纺织服饰", "商贸零售", "新零售", "家居用品", "文娱用品",
-                 "婴童", "养老产业", "体育", "教育", "在线教育", "社会服务", "轻工制造", "新消费",
-                 "可选消费", "消费", "家电零部件", "智能家居"],
-        "金融": ["银行", "证券", "保险", "非银金融", "国有大型银行", "股份制银行", "城商行", "金融"],
-        "能源": ["新能源", "煤炭", "石油石化", "电力", "绿色电力", "氢能源", "储能", "锂电池", "电池",
-                 "光伏设备", "风电设备", "充电桩", "固态电池", "能源", "煤炭开采", "公用事业", "锂矿"],
-        "工业制造": ["机械设备", "汽车", "新能源车", "工程机械", "高端装备", "电力设备", "专用设备",
-                     "通用设备", "自动化设备", "机器人", "人形机器人", "汽车零部件", "汽车服务",
-                     "汽车热管理", "尾气治理", "特斯拉", "无人驾驶", "智能驾驶", "电网设备", "电机",
-                     "高端制造", "工业4.0", "工业互联", "低空经济", "通用航空"],
-        "材料": ["有色金属", "黄金股", "贵金属", "基础化工", "钢铁", "建筑材料", "稀土永磁", "小金属",
-                 "工业金属", "材料", "大宗商品", "资源"],
-        "军工": ["国防军工", "航天装备", "航空装备", "航海装备", "军工电子", "军民融合", "商业航天",
-                 "卫星互联网", "航母", "航空机场"],
-        "基建地产": ["建筑装饰", "房地产", "房地产开发", "房地产服务", "交通运输", "物流"],
-        "环保": ["环保", "环保设备", "环境治理", "垃圾分类", "碳中和", "可控核聚变", "液冷"],
+        "科技": [
+            "人工智能",
+            "半导体",
+            "云计算",
+            "5G",
+            "光模块",
+            "CPO",
+            "F5G",
+            "通信设备",
+            "PCB",
+            "消费电子",
+            "计算机",
+            "软件开发",
+            "信创",
+            "网络安全",
+            "IT服务",
+            "国产软件",
+            "计算机设备",
+            "光通信",
+            "算力",
+            "脑机接口",
+            "通信",
+            "电子",
+            "光学光电子",
+            "元件",
+            "存储芯片",
+            "第三代半导体",
+            "光刻胶",
+            "电子化学品",
+            "LED",
+            "毫米波",
+            "智能穿戴",
+            "东数西算",
+            "数据要素",
+            "国资云",
+            "Web3.0",
+            "AIGC",
+            "AI应用",
+            "AI手机",
+            "AI眼镜",
+            "DeepSeek",
+            "TMT",
+            "科技",
+        ],
+        "医药健康": [
+            "医药生物",
+            "医疗器械",
+            "生物疫苗",
+            "CRO",
+            "创新药",
+            "精准医疗",
+            "医疗服务",
+            "中药",
+            "化学制药",
+            "生物制品",
+            "基因测序",
+            "超级真菌",
+        ],
+        "消费": [
+            "食品饮料",
+            "白酒",
+            "家用电器",
+            "纺织服饰",
+            "商贸零售",
+            "新零售",
+            "家居用品",
+            "文娱用品",
+            "婴童",
+            "养老产业",
+            "体育",
+            "教育",
+            "在线教育",
+            "社会服务",
+            "轻工制造",
+            "新消费",
+            "可选消费",
+            "消费",
+            "家电零部件",
+            "智能家居",
+        ],
+        "金融": [
+            "银行",
+            "证券",
+            "保险",
+            "非银金融",
+            "国有大型银行",
+            "股份制银行",
+            "城商行",
+            "金融",
+        ],
+        "能源": [
+            "新能源",
+            "煤炭",
+            "石油石化",
+            "电力",
+            "绿色电力",
+            "氢能源",
+            "储能",
+            "锂电池",
+            "电池",
+            "光伏设备",
+            "风电设备",
+            "充电桩",
+            "固态电池",
+            "能源",
+            "煤炭开采",
+            "公用事业",
+            "锂矿",
+        ],
+        "工业制造": [
+            "机械设备",
+            "汽车",
+            "新能源车",
+            "工程机械",
+            "高端装备",
+            "电力设备",
+            "专用设备",
+            "通用设备",
+            "自动化设备",
+            "机器人",
+            "人形机器人",
+            "汽车零部件",
+            "汽车服务",
+            "汽车热管理",
+            "尾气治理",
+            "特斯拉",
+            "无人驾驶",
+            "智能驾驶",
+            "电网设备",
+            "电机",
+            "高端制造",
+            "工业4.0",
+            "工业互联",
+            "低空经济",
+            "通用航空",
+        ],
+        "材料": [
+            "有色金属",
+            "黄金股",
+            "贵金属",
+            "基础化工",
+            "钢铁",
+            "建筑材料",
+            "稀土永磁",
+            "小金属",
+            "工业金属",
+            "材料",
+            "大宗商品",
+            "资源",
+        ],
+        "军工": [
+            "国防军工",
+            "航天装备",
+            "航空装备",
+            "航海装备",
+            "军工电子",
+            "军民融合",
+            "商业航天",
+            "卫星互联网",
+            "航母",
+            "航空机场",
+        ],
+        "基建地产": [
+            "建筑装饰",
+            "房地产",
+            "房地产开发",
+            "房地产服务",
+            "交通运输",
+            "物流",
+        ],
+        "环保": [
+            "环保",
+            "环保设备",
+            "环境治理",
+            "垃圾分类",
+            "碳中和",
+            "可控核聚变",
+            "液冷",
+        ],
         "传媒": ["传媒", "游戏", "影视", "元宇宙", "超清视频", "数字孪生"],
-        "主题": ["国企改革", "一带一路", "中特估", "中字头", "并购重组", "华为", "新兴产业",
-                 "国家安防", "安全主题", "农牧主题", "农林牧渔", "养殖业", "猪肉", "高端装备"]
+        "主题": [
+            "国企改革",
+            "一带一路",
+            "中特估",
+            "中字头",
+            "并购重组",
+            "华为",
+            "新兴产业",
+            "国家安防",
+            "安全主题",
+            "农牧主题",
+            "农林牧渔",
+            "养殖业",
+            "猪肉",
+            "高端装备",
+        ],
     }
 
     def __init__(self, user_id=None, db=None):
@@ -89,13 +259,13 @@ class LanFund:
             "origin": "https://gushitong.baidu.com",
             "priority": "u=1, i",
             "referer": "https://gushitong.baidu.com/",
-            "sec-ch-ua": "\"Google Chrome\";v=\"143\", \"Chromium\";v=\"143\", \"Not A(Brand\";v=\"24\"",
+            "sec-ch-ua": '"Google Chrome";v="143", "Chromium";v="143", "Not A(Brand";v="24"',
             "sec-ch-ua-mobile": "?0",
-            "sec-ch-ua-platform": "\"Windows\"",
+            "sec-ch-ua-platform": '"Windows"',
             "sec-fetch-dest": "empty",
             "sec-fetch-mode": "cors",
             "sec-fetch-site": "same-site",
-            "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36"
+            "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36",
         }
         self._csrf = ""
         self.report_dir = None  # 默认不输出报告文件（需通过 -o 参数指定）
@@ -128,20 +298,44 @@ class LanFund:
             with open("cache/fund_map.json", "w", encoding="gbk") as f:
                 json.dump(self.CACHE_MAP, f, ensure_ascii=False, indent=4)
 
-    def init(self):
-        res = self.session.get("https://www.fund123.cn/fund", headers={
-            "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
-            "Accept-Language": "zh-CN,zh;q=0.9",
-            "Connection": "keep-alive",
-            "Upgrade-Insecure-Requests": "1",
-            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36"
-        }, timeout=10, verify=False)
-        self._csrf = re.findall('\"csrf\":\"(.*?)\"', res.text)[0]
+    def baidu_get(self, url, **kwargs):
+        max_retries = 3
+        for i in range(max_retries):
+            try:
+                return self.baidu_session.get(url, **kwargs)
+            except Exception as e:
+                if "TLS connect error" in str(e) or "OPENSSL_internal" in str(e):
+                    if i < max_retries - 1:
+                        time.sleep(1)
+                        continue
+                if i == max_retries - 1:
+                    raise e
+                raise e
 
-        self.baidu_session.get("https://gushitong.baidu.com/index/ab-000001", headers={
-            "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36",
-            "referer": "https://gushitong.baidu.com/"
-        }, timeout=10, verify=False)
+    def init(self):
+        res = self.session.get(
+            "https://www.fund123.cn/fund",
+            headers={
+                "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
+                "Accept-Language": "zh-CN,zh;q=0.9",
+                "Connection": "keep-alive",
+                "Upgrade-Insecure-Requests": "1",
+                "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36",
+            },
+            timeout=10,
+            verify=False,
+        )
+        self._csrf = re.findall('"csrf":"(.*?)"', res.text)[0]
+
+        self.baidu_get(
+            "https://gushitong.baidu.com/index/ab-000001",
+            headers={
+                "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36",
+                "referer": "https://gushitong.baidu.com/",
+            },
+            timeout=10,
+            verify=False,
+        )
         # self.baidu_session.cookies.update({
         #     "BDUSS": "3hJYkhPNEM3Z2xOeH5TLVU4OEhhU1hPUFYxdVV3V0pkd1VEMEhCTEgxRENMWEJsSVFBQUFBJCQAAAAAAAAAAAEAAAAVl0lPamRrZGpiZGIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMKgSGXCoEhlM",
         #     "BDUSS_BFESS": "3hJYkhPNEM3Z2xOeH5TLVU4OEhhU1hPUFYxdVV3V0pkd1VEMEhCTEgxRENMWEJsSVFBQUFBJCQAAAAAAAAAAAEAAAAVl0lPamRrZGpiZGIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMKgSGXCoEhlM",
@@ -160,16 +354,19 @@ class LanFund:
                     "Referer": "https://www.fund123.cn/fund",
                     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36",
                     "X-API-Key": "foobar",
-                    "accept": "json"
+                    "accept": "json",
                 }
                 url = "https://www.fund123.cn/api/fund/searchFund"
-                params = {
-                    "_csrf": self._csrf
-                }
-                data = {
-                    "fundCode": code
-                }
-                response = self.session.post(url, headers=headers, params=params, json=data, timeout=10, verify=False)
+                params = {"_csrf": self._csrf}
+                data = {"fundCode": code}
+                response = self.session.post(
+                    url,
+                    headers=headers,
+                    params=params,
+                    json=data,
+                    timeout=10,
+                    verify=False,
+                )
                 if response.json()["success"]:
                     fund_key = response.json()["fundInfo"]["key"]
                     fund_name = response.json()["fundInfo"]["fundName"]
@@ -177,7 +374,7 @@ class LanFund:
                         "fund_key": fund_key,
                         "fund_name": fund_name,
                         "is_hold": False,
-                        "shares": 0
+                        "shares": 0,
                     }
                     logger.info(f"添加基金代码【{code}】成功")
                 else:
@@ -219,7 +416,7 @@ class LanFund:
         logger.info("板块分类列表:")
         results = []
         for i in range(0, len(all_sectors), 5):
-            tmp = all_sectors[i:i + 5]
+            tmp = all_sectors[i : i + 5]
             tmp = [f"{i + 1 + j}. {tmp[j]}" for j in range(len(tmp))]
             results.append(tmp)
         for line_msg in format_table_msg(results).split("\n"):
@@ -228,12 +425,18 @@ class LanFund:
         for code in codes:
             try:
                 if code not in self.CACHE_MAP:
-                    logger.warning(f"标记板块【{code}】失败: 不存在该基金代码, 请先添加该基金代码")
+                    logger.warning(
+                        f"标记板块【{code}】失败: 不存在该基金代码, 请先添加该基金代码"
+                    )
                     continue
 
                 # 选择板块
-                logger.info(f"为基金 【{code} {self.CACHE_MAP[code]['fund_name']}】 选择板块:")
-                logger.info("请输入板块序号或自定义板块名称 (多个用逗号分隔, 如: 1,3,5 或 新能源,医药 或 1,新能源):")
+                logger.info(
+                    f"为基金 【{code} {self.CACHE_MAP[code]['fund_name']}】 选择板块:"
+                )
+                logger.info(
+                    "请输入板块序号或自定义板块名称 (多个用逗号分隔, 如: 1,3,5 或 新能源,医药 或 1,新能源):"
+                )
                 sector_input = input().strip()
 
                 if sector_input:
@@ -299,7 +502,9 @@ class LanFund:
     def unmark_fund_sector(self):
         """删除基金板块标记（独立功能）"""
         # 找出所有有板块标记的基金
-        marked_codes = [code for code, data in self.CACHE_MAP.items() if data.get("sectors", [])]
+        marked_codes = [
+            code for code, data in self.CACHE_MAP.items() if data.get("sectors", [])
+        ]
         if not marked_codes:
             logger.warning("暂无板块标记的基金代码")
             return
@@ -317,7 +522,9 @@ class LanFund:
                         self.CACHE_MAP[code]["sectors"] = []
                         logger.info(f"删除板块标记【{code}】成功")
                     else:
-                        logger.warning(f"删除板块标记【{code}】失败: 该基金没有板块标记")
+                        logger.warning(
+                            f"删除板块标记【{code}】失败: 该基金没有板块标记"
+                        )
                 else:
                     logger.warning(f"删除板块标记【{code}】失败: 不存在该基金代码")
             except Exception as e:
@@ -338,10 +545,12 @@ class LanFund:
                     "Referer": "https://www.fund123.cn/fund",
                     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36",
                     "X-API-Key": "foobar",
-                    "accept": "json"
+                    "accept": "json",
                 }
                 url = f"https://www.fund123.cn/matiaria?fundCode={fund}"
-                response = self.session.get(url, headers=headers, timeout=10, verify=False)
+                response = self.session.get(
+                    url, headers=headers, timeout=10, verify=False
+                )
                 dayOfGrowth = re.findall(r'"dayOfGrowth":"(.*?)"', response.text)[0]
                 dayOfGrowth = str(round(float(dayOfGrowth), 2)) + "%"
 
@@ -349,14 +558,16 @@ class LanFund:
                 netValueDate = re.findall(r'"netValueDate":"(.*?)"', response.text)[0]
                 netValue = netValue + f"({netValueDate})"
                 url = "https://www.fund123.cn/api/fund/queryFundQuotationCurves"
-                params = {
-                    "_csrf": self._csrf
-                }
-                data = {
-                    "productId": fund_key,
-                    "dateInterval": "ONE_MONTH"
-                }
-                response = self.session.post(url, headers=headers, params=params, json=data, timeout=10, verify=False)
+                params = {"_csrf": self._csrf}
+                data = {"productId": fund_key, "dateInterval": "ONE_MONTH"}
+                response = self.session.post(
+                    url,
+                    headers=headers,
+                    params=params,
+                    json=data,
+                    timeout=10,
+                    verify=False,
+                )
                 if not response.json()["success"]:
                     logger.error(f"查询基金代码【{fund}】失败: {response.text.strip()}")
                     return
@@ -381,7 +592,9 @@ class LanFund:
                 montly_growth_day_count = len(montly_growth)
                 consecutive_count = 1
                 start_rate = montly_growth[0].split(",")[1]
-                montly_growth_rate = str(round(round(float(start_rate), 4) * 100, 2)) + "%"
+                montly_growth_rate = (
+                    str(round(round(float(start_rate), 4) * 100, 2)) + "%"
+                )
                 end_rate = 0
                 for i in montly_growth[1:]:
                     if i[0] == montly_growth[0][0]:
@@ -398,7 +611,10 @@ class LanFund:
                     if not is_return:
                         montly_growth_day = "\033[1;31m" + montly_growth_day
 
-                consecutive_growth = str(round(round(float(start_rate) - float(end_rate), 4) * 100, 2)) + "%"
+                consecutive_growth = (
+                    str(round(round(float(start_rate) - float(end_rate), 4) * 100, 2))
+                    + "%"
+                )
                 if montly_growth[0][0] == "跌":
                     if not is_return:
                         consecutive_count = "\033[1;32m" + str(-consecutive_count)
@@ -415,30 +631,40 @@ class LanFund:
                         consecutive_growth = str(consecutive_growth)
 
                 url = "https://www.fund123.cn/api/fund/queryFundEstimateIntraday"
-                params = {
-                    "_csrf": self._csrf
-                }
+                params = {"_csrf": self._csrf}
                 today = datetime.datetime.now().strftime("%Y-%m-%d")
-                tomorrow = (datetime.datetime.now() + datetime.timedelta(days=1)).strftime("%Y-%m-%d")
+                tomorrow = (
+                    datetime.datetime.now() + datetime.timedelta(days=1)
+                ).strftime("%Y-%m-%d")
                 data = {
                     "startTime": today,
                     "endTime": tomorrow,
                     "limit": 200,
                     "productId": fund_key,
                     "format": True,
-                    "source": "WEALTHBFFWEB"
+                    "source": "WEALTHBFFWEB",
                 }
-                response = self.session.post(url, headers=headers, params=params, json=data, timeout=10, verify=False)
+                response = self.session.post(
+                    url,
+                    headers=headers,
+                    params=params,
+                    json=data,
+                    timeout=10,
+                    verify=False,
+                )
                 if response.json()["success"]:
                     if not response.json()["list"]:
                         now_time = "N/A"
                         forecastGrowth = "N/A"
                     else:
                         fund_info = response.json()["list"][-1]
-                        now_time = datetime.datetime.fromtimestamp(fund_info["time"] / 1000).strftime(
-                            "%H:%M"
+                        now_time = datetime.datetime.fromtimestamp(
+                            fund_info["time"] / 1000
+                        ).strftime("%H:%M")
+                        forecastGrowth = (
+                            str(round(float(fund_info["forecastGrowth"]) * 100, 2))
+                            + "%"
                         )
-                        forecastGrowth = str(round(float(fund_info["forecastGrowth"]) * 100, 2)) + "%"
                         if not is_return:
                             if "-" in forecastGrowth:
                                 forecastGrowth = "\033[1;32m" + forecastGrowth
@@ -466,9 +692,18 @@ class LanFund:
                     consecutive_info = f"{consecutive_count}天 {consecutive_growth}"
                     # 合并近30天涨跌和总涨幅
                     monthly_info = f"{montly_growth_day}/{montly_growth_day_count} {montly_growth_rate}"
-                    self.result.append([
-                        fund, fund_name, now_time, netValue, forecastGrowth, dayOfGrowth, consecutive_info, monthly_info
-                    ])
+                    self.result.append(
+                        [
+                            fund,
+                            fund_name,
+                            now_time,
+                            netValue,
+                            forecastGrowth,
+                            dayOfGrowth,
+                            consecutive_info,
+                            monthly_info,
+                        ]
+                    )
                 else:
                     logger.error(f"查询基金代码【{fund}】失败: {response.text.strip()}")
             except Exception as e:
@@ -478,7 +713,9 @@ class LanFund:
         self.result = []
         threads = []
         for fund, fund_data in self.CACHE_MAP.items():
-            t = threading.Thread(target=self.search_one_code, args=(fund, fund_data, is_return))
+            t = threading.Thread(
+                target=self.search_one_code, args=(fund, fund_data, is_return)
+            )
             threads.append(t)
 
         for t in threads:
@@ -490,15 +727,17 @@ class LanFund:
             self.result = sorted(
                 self.result,
                 key=lambda x: float(x[4].replace("%", "")) if x[4] != "N/A" else -99,
-                reverse=True
+                reverse=True,
             )
             return self.result
 
         if self.result:
             self.result = sorted(
                 self.result,
-                key=lambda x: float(x[4].split("m")[1].replace("%", "")) if x[4] != "N/A" else -99,
-                reverse=True
+                key=lambda x: float(x[4].split("m")[1].replace("%", ""))
+                if x[4] != "N/A"
+                else -99,
+                reverse=True,
             )
 
             # 计算并显示持仓统计
@@ -508,17 +747,17 @@ class LanFund:
                 logger.critical(f"{time.strftime('%Y-%m-%d %H:%M')} 收益统计:")
 
                 # 准备表格数据
-                total_value = position_summary['total_value']
-                est_gain = position_summary['estimated_gain']
-                est_gain_pct = position_summary['estimated_gain_pct']
-                act_gain = position_summary['actual_gain']
-                act_gain_pct = position_summary['actual_gain_pct']
-                settled_value = position_summary.get('settled_value', 0)
+                total_value = position_summary["total_value"]
+                est_gain = position_summary["estimated_gain"]
+                est_gain_pct = position_summary["estimated_gain_pct"]
+                act_gain = position_summary["actual_gain"]
+                act_gain_pct = position_summary["actual_gain_pct"]
+                settled_value = position_summary.get("settled_value", 0)
 
-                est_color = '\033[1;31m' if est_gain >= 0 else '\033[1;32m'
-                act_color = '\033[1;31m' if act_gain >= 0 else '\033[1;32m'
-                est_sign = '+' if est_gain >= 0 else ''
-                act_sign = '+' if act_gain >= 0 else ''
+                est_color = "\033[1;31m" if est_gain >= 0 else "\033[1;32m"
+                act_color = "\033[1;31m" if act_gain >= 0 else "\033[1;32m"
+                est_sign = "+" if est_gain >= 0 else ""
+                act_sign = "+" if act_gain >= 0 else ""
 
                 # 今日实际涨跌：只有当有基金净值更新至今日时才显示数值
                 if settled_value > 0:
@@ -528,7 +767,10 @@ class LanFund:
 
                 summary_table = [
                     ["总持仓金额", f"¥{total_value:,.2f}"],
-                    ["今日预估涨跌", f"{est_color}{est_sign}¥{est_gain:,.2f} ({est_sign}{est_gain_pct:.2f}%)\033[0m"],
+                    [
+                        "今日预估涨跌",
+                        f"{est_color}{est_sign}¥{est_gain:,.2f} ({est_sign}{est_gain_pct:.2f}%)\033[0m",
+                    ],
                     ["今日实际涨跌", actual_gain_str],
                 ]
 
@@ -536,43 +778,78 @@ class LanFund:
                     logger.info(line_msg)
 
                 # 显示每个基金的详细涨跌（表格格式）
-                if 'fund_details' in position_summary and position_summary['fund_details']:
-                    logger.critical(f"{time.strftime('%Y-%m-%d %H:%M')} 分基金涨跌明细:")
+                if (
+                    "fund_details" in position_summary
+                    and position_summary["fund_details"]
+                ):
+                    logger.critical(
+                        f"{time.strftime('%Y-%m-%d %H:%M')} 分基金涨跌明细:"
+                    )
 
                     # 准备表格数据
                     table_data = []
-                    for detail in position_summary['fund_details']:
-                        est_color = '\033[1;31m' if detail['estimated_gain'] >= 0 else '\033[1;32m'
-                        act_color = '\033[1;31m' if detail['actual_gain'] >= 0 else '\033[1;32m'
-                        est_sign = '+' if detail['estimated_gain'] >= 0 else ''
-                        act_sign = '+' if detail['actual_gain'] >= 0 else ''
+                    for detail in position_summary["fund_details"]:
+                        est_color = (
+                            "\033[1;31m"
+                            if detail["estimated_gain"] >= 0
+                            else "\033[1;32m"
+                        )
+                        act_color = (
+                            "\033[1;31m" if detail["actual_gain"] >= 0 else "\033[1;32m"
+                        )
+                        est_sign = "+" if detail["estimated_gain"] >= 0 else ""
+                        act_sign = "+" if detail["actual_gain"] >= 0 else ""
 
-                        table_data.append([
-                            detail['code'],
-                            detail['name'],
-                            f"{detail['shares']:,.2f}",
-                            f"¥{detail['position_value']:,.2f}",
-                            f"{est_color}{est_sign}¥{detail['estimated_gain']:,.2f}\033[0m",
-                            f"{est_color}{est_sign}{detail['estimated_gain_pct']:.2f}%\033[0m",
-                            f"{act_color}{act_sign}¥{detail['actual_gain']:,.2f}\033[0m",
-                            f"{act_color}{act_sign}{detail['actual_gain_pct']:.2f}%\033[0m",
-                        ])
+                        table_data.append(
+                            [
+                                detail["code"],
+                                detail["name"],
+                                f"{detail['shares']:,.2f}",
+                                f"¥{detail['position_value']:,.2f}",
+                                f"{est_color}{est_sign}¥{detail['estimated_gain']:,.2f}\033[0m",
+                                f"{est_color}{est_sign}{detail['estimated_gain_pct']:.2f}%\033[0m",
+                                f"{act_color}{act_sign}¥{detail['actual_gain']:,.2f}\033[0m",
+                                f"{act_color}{act_sign}{detail['actual_gain_pct']:.2f}%\033[0m",
+                            ]
+                        )
 
-                    for line_msg in format_table_msg([
-                        ["基金代码", "基金名称", "持仓份额", "持仓市值", "预估收益", "预估涨跌", "实际收益", "实际涨跌"],
-                        *table_data
-                    ]).split("\n"):
+                    for line_msg in format_table_msg(
+                        [
+                            [
+                                "基金代码",
+                                "基金名称",
+                                "持仓份额",
+                                "持仓市值",
+                                "预估收益",
+                                "预估涨跌",
+                                "实际收益",
+                                "实际涨跌",
+                            ],
+                            *table_data,
+                        ]
+                    ).split("\n"):
                         logger.info(line_msg)
 
             # CLI模式删除净值列，避免表格过宽
-            cli_result = [[row[0], row[1], row[2], row[4], row[5], row[6], row[7]] for row in self.result]
+            cli_result = [
+                [row[0], row[1], row[2], row[4], row[5], row[6], row[7]]
+                for row in self.result
+            ]
             logger.critical(f"{time.strftime('%Y-%m-%d %H:%M')} 基金估值信息:")
-            for line_msg in format_table_msg([
+            for line_msg in format_table_msg(
                 [
-                    "基金代码", "基金名称", "时间", "估值", "日涨幅", "连涨/跌", "近30天"
-                ],
-                *cli_result
-            ]).split("\n"):
+                    [
+                        "基金代码",
+                        "基金名称",
+                        "时间",
+                        "估值",
+                        "日涨幅",
+                        "连涨/跌",
+                        "近30天",
+                    ],
+                    *cli_result,
+                ]
+            ).split("\n"):
                 logger.info(line_msg)
 
     def calculate_position_summary(self):
@@ -591,14 +868,16 @@ class LanFund:
         now = datetime.datetime.now()
         current_hour = now.hour
         current_minute = now.minute
-        before_market_open = current_hour < 9 or (current_hour == 9 and current_minute < 30)
+        before_market_open = current_hour < 9 or (
+            current_hour == 9 and current_minute < 30
+        )
 
         # 存储每个基金的详细涨跌信息
         fund_details = []
 
         for fund_data in self.result:
             # fund_data format: [code, name, time, net_value, estimated_growth, day_growth, consecutive_info, monthly_info]
-            shares = self.CACHE_MAP.get(fund_data[0], {}).get('shares', 0)
+            shares = self.CACHE_MAP.get(fund_data[0], {}).get("shares", 0)
             if shares <= 0:
                 continue
 
@@ -608,8 +887,8 @@ class LanFund:
 
                 # 解析净值 "1.234(2025-02-02)" or "1.234(02-03)"
                 net_value_str = fund_data[3]
-                net_value = float(net_value_str.split('(')[0])
-                net_value_date = net_value_str.split('(')[1].replace(')', '')
+                net_value = float(net_value_str.split("(")[0])
+                net_value_date = net_value_str.split("(")[1].replace(")", "")
 
                 # 处理净值日期格式：API可能返回"MM-DD"或"YYYY-MM-DD"
                 # 如果是"MM-DD"格式，添加当前年份
@@ -621,8 +900,11 @@ class LanFund:
                 estimated_growth_str = fund_data[4]
                 if estimated_growth_str != "N/A":
                     # 移除ANSI颜色代码
-                    estimated_growth_str = estimated_growth_str.replace('\033[1;31m', '').replace('\033[1;32m',
-                                                                                                  '').replace('%', '')
+                    estimated_growth_str = (
+                        estimated_growth_str.replace("\033[1;31m", "")
+                        .replace("\033[1;32m", "")
+                        .replace("%", "")
+                    )
                     estimated_growth = float(estimated_growth_str)
                 else:
                     estimated_growth = 0
@@ -631,7 +913,11 @@ class LanFund:
                 day_growth_str = fund_data[5]
                 if day_growth_str != "N/A":
                     # 移除ANSI颜色代码
-                    day_growth_str = day_growth_str.replace('\033[1;31m', '').replace('\033[1;32m', '').replace('%', '')
+                    day_growth_str = (
+                        day_growth_str.replace("\033[1;31m", "")
+                        .replace("\033[1;32m", "")
+                        .replace("%", "")
+                    )
                     day_growth = float(day_growth_str)
                 else:
                     day_growth = 0
@@ -654,16 +940,22 @@ class LanFund:
                     settled_value += position_value
 
                 # 保存每个基金的详细信息
-                fund_details.append({
-                    'code': fund_code,
-                    'name': fund_name,
-                    'shares': shares,
-                    'position_value': position_value,
-                    'estimated_gain': fund_est_gain,
-                    'estimated_gain_pct': (fund_est_gain / position_value * 100) if position_value > 0 else 0,
-                    'actual_gain': fund_act_gain,
-                    'actual_gain_pct': (fund_act_gain / position_value * 100) if position_value > 0 else 0,
-                })
+                fund_details.append(
+                    {
+                        "code": fund_code,
+                        "name": fund_name,
+                        "shares": shares,
+                        "position_value": position_value,
+                        "estimated_gain": fund_est_gain,
+                        "estimated_gain_pct": (fund_est_gain / position_value * 100)
+                        if position_value > 0
+                        else 0,
+                        "actual_gain": fund_act_gain,
+                        "actual_gain_pct": (fund_act_gain / position_value * 100)
+                        if position_value > 0
+                        else 0,
+                    }
+                )
 
             except (ValueError, IndexError, AttributeError) as e:
                 logger.warning(f"解析基金数据失败: {fund_data[0]}, {e}")
@@ -674,13 +966,17 @@ class LanFund:
             return None
 
         return {
-            'total_value': total_value,
-            'estimated_gain': estimated_gain,
-            'estimated_gain_pct': (estimated_gain / total_value * 100) if total_value > 0 else 0,
-            'actual_gain': actual_gain,
-            'actual_gain_pct': (actual_gain / settled_value * 100) if settled_value > 0 else 0,
-            'settled_value': settled_value,
-            'fund_details': fund_details  # 新增：每个基金的详细涨跌信息
+            "total_value": total_value,
+            "estimated_gain": estimated_gain,
+            "estimated_gain_pct": (estimated_gain / total_value * 100)
+            if total_value > 0
+            else 0,
+            "actual_gain": actual_gain,
+            "actual_gain_pct": (actual_gain / settled_value * 100)
+            if settled_value > 0
+            else 0,
+            "settled_value": settled_value,
+            "fund_details": fund_details,  # 新增：每个基金的详细涨跌信息
         }
 
     def modify_shares(self):
@@ -692,7 +988,7 @@ class LanFund:
 
         logger.info("当前基金列表:")
         for code, data in self.CACHE_MAP.items():
-            shares = data.get('shares', 0)
+            shares = data.get("shares", 0)
             logger.info(f"  {code} - {data['fund_name']} (当前份额: {shares})")
 
         logger.info("\n请输入基金代码, 多个基金代码以英文逗号分隔:")
@@ -703,11 +999,13 @@ class LanFund:
         for code in codes:
             try:
                 if code not in self.CACHE_MAP:
-                    logger.warning(f"修改份额【{code}】失败: 不存在该基金代码, 请先添加该基金代码")
+                    logger.warning(
+                        f"修改份额【{code}】失败: 不存在该基金代码, 请先添加该基金代码"
+                    )
                     continue
 
-                fund_name = self.CACHE_MAP[code]['fund_name']
-                current_shares = self.CACHE_MAP[code].get('shares', 0)
+                fund_name = self.CACHE_MAP[code]["fund_name"]
+                current_shares = self.CACHE_MAP[code].get("shares", 0)
 
                 logger.info(f"\n基金 【{code} {fund_name}】")
                 logger.info(f"当前份额: {current_shares}")
@@ -721,11 +1019,11 @@ class LanFund:
                             logger.warning("份额不能为负数")
                             continue
 
-                        self.CACHE_MAP[code]['shares'] = shares
+                        self.CACHE_MAP[code]["shares"] = shares
 
                         # 如果份额>0，自动标记为持有
                         if shares > 0:
-                            self.CACHE_MAP[code]['is_hold'] = True
+                            self.CACHE_MAP[code]["is_hold"] = True
 
                         logger.info(f"✓ 已更新份额: {shares}")
                     except ValueError:
@@ -744,10 +1042,17 @@ class LanFund:
         result = self.search_code(True)
         return get_table_html(
             [
-                "基金代码", "基金名称", "当前时间", "净值", "估值", "日涨幅", "连涨/跌", "近30天"
+                "基金代码",
+                "基金名称",
+                "当前时间",
+                "净值",
+                "估值",
+                "日涨幅",
+                "连涨/跌",
+                "近30天",
             ],
             result,
-            sortable_columns=[4, 5, 6, 7]
+            sortable_columns=[4, 5, 6, 7],
         )
 
     @staticmethod
@@ -933,7 +1238,7 @@ class LanFund:
             "股份制银行": "BK000123",
             "中药": "BK000092",
             "食品饮料": "BK000074",
-            "白酒": "BK000076"
+            "白酒": "BK000076",
         }
         bk_list = list(bk_map.keys())
 
@@ -944,7 +1249,7 @@ class LanFund:
         results = []
         id_map = {}
         for i in range(0, len(bk_list), 5):
-            tmp = bk_list[i:i + 5]
+            tmp = bk_list[i : i + 5]
             tmp = [str(i + 1 + j) + ". " + tmp[j] for j in range(len(tmp))]
             for j in range(len(tmp)):
                 id_map[str(i + 1 + j)] = bk_map[bk_list[i + j]]
@@ -983,7 +1288,7 @@ class LanFund:
             "pn": "1000",
             "zf": "diy",
             "sh": "list",
-            "rnd": str(random.random())
+            "rnd": str(random.random()),
         }
 
         headers = {
@@ -995,9 +1300,9 @@ class LanFund:
             "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36",
             "accept": "*/*",
             "accept-language": "zh-CN,zh;q=0.9",
-            "sec-ch-ua": "\"Google Chrome\";v=\"143\", \"Chromium\";v=\"143\", \"Not A(Brand\";v=\"24\"",
+            "sec-ch-ua": '"Google Chrome";v="143", "Chromium";v="143", "Not A(Brand";v="24"',
             "sec-ch-ua-mobile": "?0",
-            "sec-ch-ua-platform": "\"Windows\""
+            "sec-ch-ua-platform": '"Windows"',
         }
 
         response = requests.get(url, headers=headers, params=params, timeout=30)
@@ -1006,45 +1311,76 @@ class LanFund:
         fund_results = []
         for data in datas:
             data_list = data.split(",")
-            fund_results.append([
-                (data_list[0] or "---"),
-                (data_list[1] or "---"),
-                (data_list[3] or "---"),
-                (data_list[15] or "---"),
-                (data_list[16] or "---"),  # 净值
-                (data_list[17] or "---") + "%",  # 日增长率
-                (data_list[5] or "---") + "%",
-                (data_list[6] or "---") + "%",
-                (data_list[7] or "---") + "%",
-                (data_list[8] or "---") + "%",
-                (data_list[4] or "---") + "%",
-                (data_list[9] or "---") + "%",
-                (data_list[10] or "---") + "%",
-                (data_list[11] or "---") + "%",
-                (data_list[24] or "---") + "%"
-            ])
+            fund_results.append(
+                [
+                    (data_list[0] or "---"),
+                    (data_list[1] or "---"),
+                    (data_list[3] or "---"),
+                    (data_list[15] or "---"),
+                    (data_list[16] or "---"),  # 净值
+                    (data_list[17] or "---") + "%",  # 日增长率
+                    (data_list[5] or "---") + "%",
+                    (data_list[6] or "---") + "%",
+                    (data_list[7] or "---") + "%",
+                    (data_list[8] or "---") + "%",
+                    (data_list[4] or "---") + "%",
+                    (data_list[9] or "---") + "%",
+                    (data_list[10] or "---") + "%",
+                    (data_list[11] or "---") + "%",
+                    (data_list[24] or "---") + "%",
+                ]
+            )
 
         if is_return:
             return {
                 "bk_id": bk_id,
-                "bk_name": list(bk_map.keys())[int(bk_id) - 1] if bk_id.isdigit() else bk_id,
-                "results": fund_results
+                "bk_name": list(bk_map.keys())[int(bk_id) - 1]
+                if bk_id.isdigit()
+                else bk_id,
+                "results": fund_results,
             }
 
-        logger.critical(f"板块【{bk_id}. {list(bk_map.keys())[int(bk_id) - 1]}】基金列表:")
-        for line_msg in format_table_msg([
+        logger.critical(
+            f"板块【{bk_id}. {list(bk_map.keys())[int(bk_id) - 1]}】基金列表:"
+        )
+        for line_msg in format_table_msg(
             [
-                "基金代码", "基金名称", "基金类型", "日期", "净值|日增长率", "近1周", "近1月", "近3月", "近6月",
-                "今年来", "近1年", "近2年", "近3年", "成立来"
-            ],
-            *fund_results
-        ]).split("\n"):
+                [
+                    "基金代码",
+                    "基金名称",
+                    "基金类型",
+                    "日期",
+                    "净值|日增长率",
+                    "近1周",
+                    "近1月",
+                    "近3月",
+                    "近6月",
+                    "今年来",
+                    "近1年",
+                    "近2年",
+                    "近3年",
+                    "成立来",
+                ],
+                *fund_results,
+            ]
+        ).split("\n"):
             logger.info(line_msg)
 
-    def run(self, is_add=False, is_delete=False, is_hold=False, is_not_hold=False, report_dir=None,
-            deep_mode=False, fast_mode=False, with_ai=False, select_mode=False, mark_sector=False, unmark_sector=False,
-            modify_shares=False):
-
+    def run(
+        self,
+        is_add=False,
+        is_delete=False,
+        is_hold=False,
+        is_not_hold=False,
+        report_dir=None,
+        deep_mode=False,
+        fast_mode=False,
+        with_ai=False,
+        select_mode=False,
+        mark_sector=False,
+        unmark_sector=False,
+        modify_shares=False,
+    ):
         if select_mode:
             self.select_fund()
             return
@@ -1074,7 +1410,11 @@ class LanFund:
             is_hold = False
             is_not_hold = False
         if is_not_hold:
-            hold_codes = [code for code, data in self.CACHE_MAP.items() if data.get("is_hold", False)]
+            hold_codes = [
+                code
+                for code, data in self.CACHE_MAP.items()
+                if data.get("is_hold", False)
+            ]
             if not hold_codes:
                 logger.warning("暂无持有标注基金代码")
                 return
@@ -1105,7 +1445,9 @@ class LanFund:
             for code in codes:
                 try:
                     if code not in self.CACHE_MAP:
-                        logger.warning(f"添加持有标注【{code}】失败: 不存在该基金代码, 请先添加该基金代码")
+                        logger.warning(
+                            f"添加持有标注【{code}】失败: 不存在该基金代码, 请先添加该基金代码"
+                        )
                         continue
 
                     self.CACHE_MAP[code]["is_hold"] = True
@@ -1148,7 +1490,7 @@ class LanFund:
             markets = ["asia", "america"]
             for market in markets:
                 url = f"https://finance.pae.baidu.com/api/getbanner?market={market}&finClientType=pc"
-                response = self.baidu_session.get(url, timeout=10, verify=False)
+                response = self.baidu_get(url, timeout=10, verify=False)
                 if response.json()["ResultCode"] == "0":
                     market_list = response.json()["Result"]["list"]
                     for market_info in market_list:
@@ -1158,11 +1500,9 @@ class LanFund:
                                 ratio = "\033[1;32m" + ratio
                             else:
                                 ratio = "\033[1;31m" + ratio
-                        result.append([
-                            market_info["name"],
-                            market_info["lastPrice"],
-                            ratio
-                        ])
+                        result.append(
+                            [market_info["name"], market_info["lastPrice"], ratio]
+                        )
 
             # 增加创业板指
             url = "https://finance.pae.baidu.com/vapi/v1/getquotation"
@@ -1176,9 +1516,9 @@ class LanFund:
                 "market_type": "ab",
                 "newFormat": "1",
                 "name": "创业板指",
-                "finClientType": "pc"
+                "finClientType": "pc",
             }
-            response = self.baidu_session.get(url, params=params, timeout=10, verify=False)
+            response = self.baidu_get(url, params=params, timeout=10, verify=False)
             if str(response.json()["ResultCode"]) == "0":
                 cur = response.json()["Result"]["cur"]
                 ratio = cur["ratio"]
@@ -1187,23 +1527,16 @@ class LanFund:
                         ratio = "\033[1;32m" + ratio
                     else:
                         ratio = "\033[1;31m" + ratio
-                result.insert(2, [
-                    "创业板指",
-                    cur["price"],
-                    ratio
-                ])
+                result.insert(2, ["创业板指", cur["price"], ratio])
         except Exception as e:
             logger.error(f"获取市场信息失败: {e}")
         if is_return:
             return result
         if result:
             logger.critical(f"{time.strftime('%Y-%m-%d %H:%M')} 市场信息:")
-            for line_msg in format_table_msg([
-                [
-                    "指数名称", "指数", "涨跌幅"
-                ],
-                *result
-            ]).split("\n"):
+            for line_msg in format_table_msg(
+                [["指数名称", "指数", "涨跌幅"], *result]
+            ).split("\n"):
                 logger.info(line_msg)
 
     def marker_html(self):
@@ -1225,18 +1558,18 @@ class LanFund:
                 price = float(item[1]) if item[1] else 0
                 # 涨跌幅可能包含%和颜色代码，需要清理
                 change_str = item[2] if item[2] else "0%"
-                change_str = change_str.replace('%', '').replace('\033[1;31m', '').replace('\033[1;32m', '')
+                change_str = (
+                    change_str.replace("%", "")
+                    .replace("\033[1;31m", "")
+                    .replace("\033[1;32m", "")
+                )
                 change = float(change_str)
             except:
                 price = 0
                 change = 0
             prices.append(price)
             changes.append(change)
-        return {
-            'labels': labels,
-            'prices': prices,
-            'changes': changes
-        }
+        return {"labels": labels, "prices": prices, "changes": changes}
 
     def get_volume_chart_data(self):
         """返回成交量趋势图表数据（用于前端Chart.js）"""
@@ -1251,10 +1584,10 @@ class LanFund:
             try:
                 labels.append(item[0])  # 日期
                 # 清理数据，移除"亿"等字符
-                total = float(item[1].replace('亿', '')) if item[1] else 0
-                ss = float(item[2].replace('亿', '')) if item[2] else 0
-                sz = float(item[3].replace('亿', '')) if item[3] else 0
-                bj = float(item[4].replace('亿', '')) if item[4] else 0
+                total = float(item[1].replace("亿", "")) if item[1] else 0
+                ss = float(item[2].replace("亿", "")) if item[2] else 0
+                sz = float(item[3].replace("亿", "")) if item[3] else 0
+                bj = float(item[4].replace("亿", "")) if item[4] else 0
                 total_data.append(total)
                 ss_data.append(ss)
                 sz_data.append(sz)
@@ -1262,11 +1595,11 @@ class LanFund:
             except:
                 continue
         return {
-            'labels': labels[::-1],  # 反转顺序，让日期从早到晚
-            'total': total_data[::-1],
-            'sh': ss_data[::-1],
-            'sz': sz_data[::-1],
-            'bj': bj_data[::-1]
+            "labels": labels[::-1],  # 反转顺序，让日期从早到晚
+            "total": total_data[::-1],
+            "sh": ss_data[::-1],
+            "sz": sz_data[::-1],
+            "bj": bj_data[::-1],
         }
 
     def get_timing_chart_data(self):
@@ -1284,15 +1617,23 @@ class LanFund:
                 labels.append(item[0])  # 时间
                 price = float(item[1]) if item[1] else 0
                 # 提取涨跌幅，如"+0.38%"，转换为浮点数
-                pct_str = item[3].replace('%', '') if len(item) > 3 and item[3] else '0'
+                pct_str = item[3].replace("%", "") if len(item) > 3 and item[3] else "0"
                 pct = float(pct_str)
                 # 提取涨跌额（原始数据，如"+12.34"或"-5.67"）
                 change_amt = float(item[2]) if len(item) > 2 and item[2] else 0
                 # 成交量清理"万手"等字符
-                vol_str = item[4].replace('万手', '').replace(',', '') if len(item) > 4 and item[4] else '0'
+                vol_str = (
+                    item[4].replace("万手", "").replace(",", "")
+                    if len(item) > 4 and item[4]
+                    else "0"
+                )
                 volume = float(vol_str)
                 # 成交额清理"亿"等字符
-                amt_str = item[5].replace('亿', '').replace(',', '') if len(item) > 5 and item[5] else '0'
+                amt_str = (
+                    item[5].replace("亿", "").replace(",", "")
+                    if len(item) > 5 and item[5]
+                    else "0"
+                )
                 amount = float(amt_str)
                 prices.append(price)
                 change_pcts.append(pct)
@@ -1302,20 +1643,26 @@ class LanFund:
             except:
                 continue
         return {
-            'labels': labels,
-            'prices': prices,
-            'change_pcts': change_pcts,
-            'change_amounts': change_amounts,  # 涨跌额（原始数据）
-            'volumes': volumes,
-            'amounts': amounts  # 成交额（亿）
+            "labels": labels,
+            "prices": prices,
+            "change_pcts": change_pcts,
+            "change_amounts": change_amounts,  # 涨跌额（原始数据）
+            "volumes": volumes,
+            "amounts": amounts,  # 成交额（亿）
         }
 
     def gold_html(self):
         result = self.gold(True)
         if result:
             return get_table_html(
-                ["日期", "中国黄金基础金价", "周大福金价", "中国黄金基础金价涨跌", "周大福金价涨跌"],
-                result
+                [
+                    "日期",
+                    "中国黄金基础金价",
+                    "周大福金价",
+                    "中国黄金基础金价涨跌",
+                    "周大福金价涨跌",
+                ],
+                result,
             )
 
     @staticmethod
@@ -1334,7 +1681,7 @@ class LanFund:
                 "invt": "2",
                 "ut": "8dec03ba335b81bf4ebdf7b29ec27d15",
                 "fs": "m:90 t:2",
-                "fields": "f12,f14,f2,f3,f62,f184,f66,f69,f72,f75,f78,f81,f84,f87,f204,f205,f124,f1,f13"
+                "fields": "f12,f14,f2,f3,f62,f184,f66,f69,f72,f75,f78,f81,f84,f87,f204,f205,f124,f1,f13",
             }
             response = requests.get(url, params=params, timeout=10, verify=False)
             if str(response.json()["data"]):
@@ -1360,47 +1707,65 @@ class LanFund:
                             add_market_cap2 = "\033[1;32m" + add_market_cap2
                         else:
                             add_market_cap2 = "\033[1;31m" + add_market_cap2
-                    bk_result.append([
-                        bk["f14"],
-                        ratio,
-                        add_market_cap,
-                        str(round(bk["f184"], 2)) + "%",
-                        add_market_cap2,
-                        str(round(bk["f87"], 2)) + "%",
-                    ])
+                    bk_result.append(
+                        [
+                            bk["f14"],
+                            ratio,
+                            add_market_cap,
+                            str(round(bk["f184"], 2)) + "%",
+                            add_market_cap2,
+                            str(round(bk["f87"], 2)) + "%",
+                        ]
+                    )
         except:
             pass
 
         bk_result = sorted(
             bk_result,
-            key=lambda x: float(x[1].split("m")[-1].replace("%", "")) if x[3] != "N/A" else -99,
-            reverse=True
+            key=lambda x: float(x[1].split("m")[-1].replace("%", ""))
+            if x[3] != "N/A"
+            else -99,
+            reverse=True,
         )
         if is_return:
             return bk_result
         if bk_result:
             logger.critical(f"{time.strftime('%Y-%m-%d %H:%M')} 行业板块:")
-            for line_msg in format_table_msg([
+            for line_msg in format_table_msg(
                 [
-                    "板块名称", "今日涨跌幅", "今日主力净流入", "今日主力净流入占比", "今日小单净流入", "今日小单流入占比"
-                ],
-                *bk_result
-            ]).split("\n"):
+                    [
+                        "板块名称",
+                        "今日涨跌幅",
+                        "今日主力净流入",
+                        "今日主力净流入占比",
+                        "今日小单净流入",
+                        "今日小单流入占比",
+                    ],
+                    *bk_result,
+                ]
+            ).split("\n"):
                 logger.info(line_msg)
 
     def bk_html(self):
         result = self.bk(True)
         return get_table_html(
-            ["板块名称", "今日涨跌幅", "今日主力净流入", "今日主力净流入占比", "今日小单净流入", "今日小单流入占比"],
+            [
+                "板块名称",
+                "今日涨跌幅",
+                "今日主力净流入",
+                "今日主力净流入占比",
+                "今日小单净流入",
+                "今日小单流入占比",
+            ],
             result,
-            sortable_columns=[1, 2, 3, 4, 5]
+            sortable_columns=[1, 2, 3, 4, 5],
         )
 
     def kx(self, is_return=False, count=10):
         url = f"https://finance.pae.baidu.com/selfselect/expressnews?rn={count}&pn=0&tag=A股&finClientType=pc"
         kx_list = []
         try:
-            response = self.baidu_session.get(url, timeout=10, verify=False)
+            response = self.baidu_get(url, timeout=10, verify=False)
             if response.json()["ResultCode"] == "0":
                 kx_list = response.json()["Result"]["content"]["list"]
         except:
@@ -1421,9 +1786,16 @@ class LanFund:
                     pre = ""
                 title = v.get("title", v["content"]["items"][0]["data"])
                 publish_time = v["publish_time"]
-                publish_time = datetime.datetime.fromtimestamp(int(publish_time)).strftime("%Y-%m-%d %H:%M:%S")
+                publish_time = datetime.datetime.fromtimestamp(
+                    int(publish_time)
+                ).strftime("%Y-%m-%d %H:%M:%S")
                 entity = v.get("entity", [])
-                entity = ", ".join([f"{x['code'].strip()}-{x['name'].strip()} {x['ratio'].strip()}" for x in entity])
+                entity = ", ".join(
+                    [
+                        f"{x['code'].strip()}-{x['name'].strip()} {x['ratio'].strip()}"
+                        for x in entity
+                    ]
+                )
                 logger.info(f"{pre}{i + 1}. {publish_time} {title}.")
                 if entity:
                     logger.debug(f"影响股票: {entity}.")
@@ -1437,7 +1809,9 @@ class LanFund:
             evaluate = v.get("evaluate", "")
             title = v.get("title", v["content"]["items"][0]["data"])
             publish_time = v["publish_time"]
-            publish_time = datetime.datetime.fromtimestamp(int(publish_time)).strftime("%H:%M:%S")
+            publish_time = datetime.datetime.fromtimestamp(int(publish_time)).strftime(
+                "%H:%M:%S"
+            )
 
             # 格式化评价，添加颜色
             if evaluate == "利好":
@@ -1447,10 +1821,7 @@ class LanFund:
 
             table_data.append([publish_time, evaluate, title])
 
-        return get_table_html(
-            ["时间", "多空", "快讯内容"],
-            table_data
-        )
+        return get_table_html(["时间", "多空", "快讯内容"], table_data)
 
     @staticmethod
     def gold(is_return=False):
@@ -1459,13 +1830,13 @@ class LanFund:
                 "accept": "*/*",
                 "accept-language": "zh-CN,zh;q=0.9",
                 "referer": "https://quote.cngold.org/gjs/swhj_zghj.html",
-                "sec-ch-ua": "\"Chromium\";v=\"128\", \"Not;A=Brand\";v=\"24\", \"Google Chrome\";v=\"128\"",
+                "sec-ch-ua": '"Chromium";v="128", "Not;A=Brand";v="24", "Google Chrome";v="128"',
                 "sec-ch-ua-mobile": "?0",
-                "sec-ch-ua-platform": "\"Windows\"",
+                "sec-ch-ua-platform": '"Windows"',
                 "sec-fetch-dest": "script",
                 "sec-fetch-mode": "no-cors",
                 "sec-fetch-site": "cross-site",
-                "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36"
+                "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36",
             }
             url = "https://api.jijinhao.com/quoteCenter/history.htm"
             params = {
@@ -1474,9 +1845,11 @@ class LanFund:
                 "pageSize": "10",
                 "needField": "128,129,70",
                 "currentPage": "1",
-                "_": int(time.time() * 1000)
+                "_": int(time.time() * 1000),
             }
-            response = requests.get(url, headers=headers, params=params, timeout=10, verify=False)
+            response = requests.get(
+                url, headers=headers, params=params, timeout=10, verify=False
+            )
             data = json.loads(response.text.replace("var quote_json = ", ""))["data"]
 
             url = "https://api.jijinhao.com/quoteCenter/history.htm"
@@ -1486,9 +1859,11 @@ class LanFund:
                 "pageSize": "10",
                 "needField": "128,129,70",
                 "currentPage": "1",
-                "_": int(time.time() * 1000)
+                "_": int(time.time() * 1000),
             }
-            response = requests.get(url, headers=headers, params=params, timeout=10, verify=False)
+            response = requests.get(
+                url, headers=headers, params=params, timeout=10, verify=False
+            )
             data2 = json.loads(response.text.replace("var quote_json = ", ""))["data"]
 
             gold_list = []
@@ -1512,23 +1887,25 @@ class LanFund:
                         radio2 = "\033[1;32m" + radio2
                     else:
                         radio2 = "\033[1;31m" + radio2
-                gold_list.append([
-                    date,
-                    gold["q1"],
-                    gold2.get("q1", "N/A"),
-                    radio,
-                    radio2
-                ])
+                gold_list.append(
+                    [date, gold["q1"], gold2.get("q1", "N/A"), radio, radio2]
+                )
             if is_return:
                 return gold_list[::-1]
             if gold_list:
                 logger.critical(f"{time.strftime('%Y-%m-%d %H:%M')} 金价:")
-                for line_msg in format_table_msg([
+                for line_msg in format_table_msg(
                     [
-                        "日期", "中国黄金基础金价", "周大福金价", "中国黄金基础金价涨跌", "周大福金价涨跌"
-                    ],
-                    *gold_list[::-1]
-                ]).split("\n"):
+                        [
+                            "日期",
+                            "中国黄金基础金价",
+                            "周大福金价",
+                            "中国黄金基础金价涨跌",
+                            "周大福金价涨跌",
+                        ],
+                        *gold_list[::-1],
+                    ]
+                ).split("\n"):
                     logger.info(line_msg)
         except Exception as e:
             logger.error(f"获取贵金属价格失败: {e}")
@@ -1539,34 +1916,60 @@ class LanFund:
             "accept": "*/*",
             "accept-language": "zh-CN,zh;q=0.9",
             "referer": "https://quote.cngold.org/gjs/gjhj.html",
-            "sec-ch-ua": "\"Not;A=Brand\";v=\"99\", \"Google Chrome\";v=\"139\", \"Chromium\";v=\"139\"",
+            "sec-ch-ua": '"Not;A=Brand";v="99", "Google Chrome";v="139", "Chromium";v="139"',
             "sec-ch-ua-mobile": "?0",
-            "sec-ch-ua-platform": "\"Windows\"",
+            "sec-ch-ua-platform": '"Windows"',
             "sec-fetch-dest": "script",
             "sec-fetch-mode": "no-cors",
             "sec-fetch-site": "cross-site",
             "sec-fetch-storage-access": "active",
-            "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36"
+            "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36",
         }
         try:
             url = "https://api.jijinhao.com/quoteCenter/realTime.htm"
             params = {
                 "codes": "JO_71,JO_92233,JO_92232,JO_75",
-                "_": str(int(time.time() * 1000))
+                "_": str(int(time.time() * 1000)),
             }
-            response = requests.get(url, headers=headers, params=params, timeout=10, verify=False)
+            response = requests.get(
+                url, headers=headers, params=params, timeout=10, verify=False
+            )
             data = json.loads(response.text.replace("var quote_json = ", ""))
             result = [[], [], []]
-            columns = ["名称", "最新价", "涨跌额", "涨跌幅", "开盘价", "最高价", "最低价", "昨收价", "更新时间", "单位"]
+            columns = [
+                "名称",
+                "最新价",
+                "涨跌额",
+                "涨跌幅",
+                "开盘价",
+                "最高价",
+                "最低价",
+                "昨收价",
+                "更新时间",
+                "单位",
+            ]
             if data:
                 data1 = data["JO_71"]
                 data2 = data["JO_92233"]
                 data3 = data["JO_92232"]
-                keys = ["showName", "q63", "q70", "q80", "q1", "q3", "q4", "q2", "time", "unit"]
+                keys = [
+                    "showName",
+                    "q63",
+                    "q70",
+                    "q80",
+                    "q1",
+                    "q3",
+                    "q4",
+                    "q2",
+                    "time",
+                    "unit",
+                ]
                 for key in keys:
                     if key == "time":
                         for i, t in enumerate([data1[key], data2[key], data3[key]]):
-                            date = datetime.datetime.fromtimestamp(t / 1000).strftime("%Y-%m-%d %H:%M:%S")
+                            date = datetime.datetime.fromtimestamp(t / 1000).strftime(
+                                "%Y-%m-%d %H:%M:%S"
+                            )
                             result[i].append(date)
 
                     else:
@@ -1608,12 +2011,9 @@ class LanFund:
                 return result
             if result and result[0] and result[1] and result[2]:
                 logger.critical(f"{time.strftime('%Y-%m-%d %H:%M')} 实时贵金属价:")
-                for line_msg in format_table_msg([
-                    columns,
-                    result[0],
-                    result[1],
-                    result[2]
-                ]).split("\n"):
+                for line_msg in format_table_msg(
+                    [columns, result[0], result[1], result[2]]
+                ).split("\n"):
                     logger.info(line_msg)
         except Exception as e:
             logger.error(f"获取实时贵金属价格失败: {e}")
@@ -1622,8 +2022,19 @@ class LanFund:
         result = self.real_time_gold(True)
         if result:
             return get_table_html(
-                ["名称", "最新价", "涨跌额", "涨跌幅", "开盘价", "最高价", "最低价", "昨收价", "更新时间", "单位"],
-                result
+                [
+                    "名称",
+                    "最新价",
+                    "涨跌额",
+                    "涨跌幅",
+                    "开盘价",
+                    "最高价",
+                    "最低价",
+                    "昨收价",
+                    "更新时间",
+                    "单位",
+                ],
+                result,
             )
 
     def A(self, is_return=False):
@@ -1638,12 +2049,14 @@ class LanFund:
             "market_type": "ab",
             "newFormat": "1",
             "name": "上证指数",
-            "finClientType": "pc"
+            "finClientType": "pc",
         }
-        response = self.baidu_session.get(url, params=params, timeout=10, verify=False)
+        response = self.baidu_get(url, params=params, timeout=10, verify=False)
         try:
             if str(response.json()["ResultCode"]) == "0":
-                marketData = response.json()["Result"]["newMarketData"]["marketData"][0]["p"]
+                marketData = response.json()["Result"]["newMarketData"]["marketData"][
+                    0
+                ]["p"]
                 if not is_return:
                     marketData = marketData.split(";")[-30:]
                 else:
@@ -1660,19 +2073,23 @@ class LanFund:
                         i[3] = i[3] + "%"
                         try:
                             i[4] = str(round(float(float(i[4]) / 10000), 2)) + "万手"
-                            i[5] = str(round(float(float(i[5]) / 10000 / 10000), 2)) + "亿"
+                            i[5] = (
+                                str(round(float(float(i[5]) / 10000 / 10000), 2)) + "亿"
+                            )
                         except:
                             pass
                         result.append(i[:-2])
                     if is_return:
                         return result
-                    logger.critical(f"{time.strftime('%Y-%m-%d %H:%M')} 近 30 分钟上证指数:")
-                    for line_msg in format_table_msg([
+                    logger.critical(
+                        f"{time.strftime('%Y-%m-%d %H:%M')} 近 30 分钟上证指数:"
+                    )
+                    for line_msg in format_table_msg(
                         [
-                            "时间", "指数", "涨跌额", "涨跌幅", "成交量", "成交额"
-                        ],
-                        *result
-                    ]).split("\n"):
+                            ["时间", "指数", "涨跌额", "涨跌幅", "成交量", "成交额"],
+                            *result,
+                        ]
+                    ).split("\n"):
                         logger.info(line_msg)
         except Exception as e:
             logger.error(f"获取上证指数信息失败: {e}")
@@ -1680,8 +2097,7 @@ class LanFund:
     def A_html(self):
         result = self.A(True)
         return get_table_html(
-            ["时间", "指数", "涨跌额", "涨跌幅", "成交量", "成交额"],
-            result
+            ["时间", "指数", "涨跌额", "涨跌幅", "成交量", "成交额"], result
         )
 
     def seven_A(self, is_return=False):
@@ -1692,16 +2108,19 @@ class LanFund:
             "code": "000001",
             "targetType": "market",
             "metric": "amount",
-            "finClientType": "pc"
+            "finClientType": "pc",
         }
         try:
-            response = self.baidu_session.get(url, params=params, timeout=10, verify=False)
+            response = self.baidu_get(url, params=params, timeout=10, verify=False)
             if str(response.json()["ResultCode"]) == "0":
                 trend = response.json()["Result"]["trend"]
                 result = []
                 # 近七天的日期
                 today = datetime.datetime.now()
-                dates = [(today - datetime.timedelta(days=i)).strftime("%Y-%m-%d") for i in range(8)]
+                dates = [
+                    (today - datetime.timedelta(days=i)).strftime("%Y-%m-%d")
+                    for i in range(8)
+                ]
                 for i in dates:
                     total = trend[0]
                     ss = trend[1]
@@ -1716,20 +2135,17 @@ class LanFund:
                         ss_amount = ss_data[0]["data"]["amount"] + "亿"
                         sz_amount = sz_data[0]["data"]["amount"] + "亿"
                         bj_amount = bj_data[0]["data"]["amount"] + "亿"
-                        result.append([
-                            i, total_amount, ss_amount, sz_amount, bj_amount
-                        ])
+                        result.append(
+                            [i, total_amount, ss_amount, sz_amount, bj_amount]
+                        )
 
                 if is_return:
                     return result
                 if result:
                     logger.critical(f"{time.strftime('%Y-%m-%d %H:%M')} 近 7 日成交量:")
-                    for line_msg in format_table_msg([
-                        [
-                            "日期", "总成交额", "上交所", "深交所", "北交所"
-                        ],
-                        *result
-                    ]).split("\n"):
+                    for line_msg in format_table_msg(
+                        [["日期", "总成交额", "上交所", "深交所", "北交所"], *result]
+                    ).split("\n"):
                         logger.info(line_msg)
         except Exception as e:
             logger.error(f"获取近七日成交量信息失败: {e}")
@@ -1738,9 +2154,7 @@ class LanFund:
         result = self.seven_A(True)
         if result:
             return get_table_html(
-                ["日期", "总成交额", "上交所", "深交所", "北交所"],
-                result,
-                [1, 2, 3, 4]
+                ["日期", "总成交额", "上交所", "深交所", "北交所"], result, [1, 2, 3, 4]
             )
 
     def select_fund_html(self, bk_id=None):
@@ -1757,7 +2171,11 @@ class LanFund:
             buttons_html = '<div style="padding: 20px;">'
             for category, sectors in major_categories.items():
                 # 过滤出属于当前大类的板块
-                category_sectors = [(idx + 1, name) for idx, name in enumerate(bk_list) if name in sectors]
+                category_sectors = [
+                    (idx + 1, name)
+                    for idx, name in enumerate(bk_list)
+                    if name in sectors
+                ]
                 if not category_sectors:
                     continue
 
@@ -1766,7 +2184,7 @@ class LanFund:
                 buttons_html += '<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 8px;">'
 
                 for idx, bk_name in category_sectors:
-                    buttons_html += f'''
+                    buttons_html += f"""
                     <button onclick="loadSectorFunds('{idx}')"
                             style="padding: 10px; background: #fff; border: 1px solid #ddd;
                                    cursor: pointer; font-weight: 500; transition: all 0.2s;
@@ -1775,11 +2193,11 @@ class LanFund:
                             onmouseout="this.style.background='#fff'; this.style.color='#000'; this.style.borderColor='#ddd'">
                         {bk_name}
                     </button>
-                    '''
-                buttons_html += '</div></div>'
-            buttons_html += '</div>'
+                    """
+                buttons_html += "</div></div>"
+            buttons_html += "</div>"
 
-            return f'''
+            return f"""
             <div id="sector-selection">
                 <h3 style="padding: 20px 20px 10px 20px; margin: 0; font-size: 1.2rem;">选择板块查看基金列表</h3>
                 {buttons_html}
@@ -1803,23 +2221,41 @@ class LanFund:
                     }});
             }}
             </script>
-            '''
+            """
         else:
             # 返回指定板块的基金列表
             data = self.select_fund(bk_id=bk_id, is_return=True)
             if "error" in data:
                 return f'<p style="color: red; padding: 20px;">{data["error"]}</p>'
 
-            return f'''
+            return f"""
             <div style="padding: 20px;">
                 <h3 style="margin: 0 0 15px 0;">板块: {data["bk_name"]}</h3>
-                {get_table_html(
-                ["基金代码", "基金名称", "基金类型", "日期", "净值", "日增长率", "近1周", "近1月", "近3月", "近6月", "今年来", "近1年", "近2年", "近3年", "成立来"],
-                data["results"],
-                [4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]
-            )}
+                {
+                get_table_html(
+                    [
+                        "基金代码",
+                        "基金名称",
+                        "基金类型",
+                        "日期",
+                        "净值",
+                        "日增长率",
+                        "近1周",
+                        "近1月",
+                        "近3月",
+                        "近6月",
+                        "今年来",
+                        "近1年",
+                        "近2年",
+                        "近3年",
+                        "成立来",
+                    ],
+                    data["results"],
+                    [4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14],
+                )
+            }
             </div>
-            '''
+            """
 
     def ai_analysis(self, deep_mode=False, fast_mode=False):
         """使用AI分析器进行市场分析
@@ -1837,18 +2273,33 @@ class LanFund:
             analyzer.analyze(self, report_dir=self.report_dir)
 
 
-if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description='LanFund')
-    parser.add_argument('-a', '--add', action='store_true', help='添加基金代码')
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description="LanFund")
+    parser.add_argument("-a", "--add", action="store_true", help="添加基金代码")
     parser.add_argument("-d", "--delete", action="store_true", help="删除基金代码")
     parser.add_argument("-c", "--hold", action="store_true", help="添加持有基金标注")
-    parser.add_argument("-b", "--not_hold", action="store_true", help="删除持有基金标注")
+    parser.add_argument(
+        "-b", "--not_hold", action="store_true", help="删除持有基金标注"
+    )
     parser.add_argument("-e", "--mark_sector", action="store_true", help="标记板块")
-    parser.add_argument("-u", "--unmark_sector", action="store_true", help="删除标记板块")
-    parser.add_argument("-s", "--select", action="store_true", help="选择板块查看基金列表")
-    parser.add_argument("-m", "--modify-shares", action="store_true", help="修改基金持仓份额")
-    parser.add_argument("-o", "--output", type=str, nargs='?', const="reports", default=None,
-                        help="输出AI分析报告到指定目录（默认: reports）。只有使用此参数时才会保存报告文件")
+    parser.add_argument(
+        "-u", "--unmark_sector", action="store_true", help="删除标记板块"
+    )
+    parser.add_argument(
+        "-s", "--select", action="store_true", help="选择板块查看基金列表"
+    )
+    parser.add_argument(
+        "-m", "--modify-shares", action="store_true", help="修改基金持仓份额"
+    )
+    parser.add_argument(
+        "-o",
+        "--output",
+        type=str,
+        nargs="?",
+        const="reports",
+        default=None,
+        help="输出AI分析报告到指定目录（默认: reports）。只有使用此参数时才会保存报告文件",
+    )
     parser.add_argument("-f", "--fast", action="store_true", help="启用快速分析模式")
     parser.add_argument("-D", "--deep", action="store_true", help="启用深度研究模式")
     parser.add_argument("-W", "--with-ai", action="store_true", help="AI分析")
@@ -1857,5 +2308,17 @@ if __name__ == '__main__':
     lan_fund = LanFund()
     # 只有指定了 -o 参数时才传入 report_dir，否则传入 None 表示不保存报告
     report_dir = args.output if args.output is not None else None
-    lan_fund.run(args.add, args.delete, args.hold, args.not_hold, report_dir, args.deep, args.fast, args.with_ai,
-                  args.select, args.mark_sector, args.unmark_sector, args.modify_shares)
+    lan_fund.run(
+        args.add,
+        args.delete,
+        args.hold,
+        args.not_hold,
+        report_dir,
+        args.deep,
+        args.fast,
+        args.with_ai,
+        args.select,
+        args.mark_sector,
+        args.unmark_sector,
+        args.modify_shares,
+    )
