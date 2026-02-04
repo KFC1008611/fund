@@ -1806,3 +1806,30 @@
 .fund-gain.positive { color: #ff4757; }
 .fund-gain.negative { color: #2ed573; }
 @media (max-width: 400px) { .showoff-card { width: calc(100vw - 40px); height: calc((100vw - 40px) * 667 / 375); } }
+
+/* Remix Icon Adjustments */
+i[class^="ri-"] {
+    vertical-align: middle;
+    margin-right: 4px;
+    line-height: 1;
+}
+
+.sidebar-icon i[class^="ri-"] {
+    margin-right: 0;
+    font-size: 20px;
+}
+
+.navbar-item i[class^="ri-"] {
+    font-size: 1.1em;
+}
+
+.btn i[class^="ri-"] {
+    font-size: 1.2em;
+}
+
+/* Ensure icons don't break layout */
+.icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}

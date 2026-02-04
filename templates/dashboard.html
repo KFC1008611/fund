@@ -8,6 +8,7 @@
     <meta http-equiv="Expires" content="0">
     <title>LanFund Dashboard</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.1.0/fonts/remixicon.css" rel="stylesheet"/>
 </head>
 <body>
     <nav class="navbar">
@@ -15,8 +16,8 @@
         <div class="navbar-menu">
             <span class="navbar-item">实时行情</span>
             {% if username %}
-            <span class="navbar-item" style="color: #667eea;">🍎 {{ username }}</span>
-            <a href="/logout" class="navbar-item" style="color: #f85149; text-decoration: none;">退出登录</a>
+            <span class="navbar-item" style="color: #667eea;"><i class="ri-user-smile-line"></i> {{ username }}</span>
+            <a href="/logout" class="navbar-item" style="color: #f85149; text-decoration: none;"><i class="ri-logout-box-r-line"></i> 退出登录</a>
             {% endif %}
         </div>
     </nav>

@@ -12,9 +12,9 @@ def enhance_fund_tab_content(content, shares_map=None):
     # 添加文件操作和持仓统计区域
     file_operations = """
         <div class="file-operations" style="margin-bottom: 15px; display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
-            <button class="btn btn-secondary" onclick="downloadFundMap()" style="padding: 8px 16px;">📥 导出基金列表</button>
+            <button class="btn btn-secondary" onclick="downloadFundMap()" style="padding: 8px 16px;"><i class="ri-download-cloud-2-line"></i> 导出基金列表</button>
             <input type="file" id="uploadFile" accept=".json" style="display:none" onchange="uploadFundMap(this.files[0])">
-            <button class="btn btn-secondary" onclick="document.getElementById('uploadFile').click()" style="padding: 8px 16px;">📤 导入基金列表</button>
+            <button class="btn btn-secondary" onclick="document.getElementById('uploadFile').click()" style="padding: 8px 16px;"><i class="ri-upload-cloud-2-line"></i> 导入基金列表</button>
             <span style="color: #f59e0b; font-size: 13px; margin-left: 10px;">
                 <span style="color: #f59e0b;">⚠️</span> 导入/导出为覆盖性操作，直接应用最新配置（非累加）
             </span>
@@ -25,7 +25,7 @@ def enhance_fund_tab_content(content, shares_map=None):
     position_summary = """
         <div id="positionSummary" class="position-summary" style="display: none; background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; padding: 20px; margin-bottom: 20px;">
             <h3 style="margin: 0 0 15px 0; font-size: 18px; font-weight: 600; color: var(--text-main); display: flex; justify-content: space-between; align-items: center;">
-                💰 持仓统计
+                <span><i class="ri-money-cny-box-line"></i> 持仓统计</span>
                 <div style="display: flex; gap: 10px; align-items: center;">
                     <button id="showoffBtn" onclick="openShowoffCard()"
                             style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -34,9 +34,9 @@ def enhance_fund_tab_content(content, shares_map=None):
                                    cursor: pointer; display: flex; align-items: center; gap: 6px;
                                    box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
                                    transition: all 0.3s ease; white-space: nowrap;">
-                        ✨ 一键炫耀
+                        <i class="ri-magic-line"></i> 一键炫耀
                     </button>
-                    <span id="toggleSensitiveValues" style="cursor: pointer; font-size: 18px; user-select: none;" title="显示 / 隐藏 收益明细">😀</span>
+                    <span id="toggleSensitiveValues" style="cursor: pointer; font-size: 18px; user-select: none;" title="显示 / 隐藏 收益明细"><i class="ri-eye-line"></i></span>
                 </div>
             </h3>
             <div class="stats-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
@@ -62,7 +62,7 @@ def enhance_fund_tab_content(content, shares_map=None):
         </div>
 
         <div id="fundDetailsSummary" class="fund-details-summary" style="display: none; background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; padding: 20px; margin-bottom: 20px;">
-            <h3 style="margin: 0 0 15px 0; font-size: 16px; font-weight: 600; color: var(--text-main);">📊 分基金涨跌明细</h3>
+            <h3 style="margin: 0 0 15px 0; font-size: 16px; font-weight: 600; color: var(--text-main);"><i class="ri-file-list-3-line"></i> 分基金涨跌明细</h3>
             <div style="overflow-x: auto;">
                 <table id="fundDetailsTable" style="width: 100%; border-collapse: collapse; font-size: 13px;">
                     <thead>
@@ -147,11 +147,11 @@ def enhance_fund_tab_content(content, shares_map=None):
     operations_panel = """
         <div class="fund-operations">
             <div class="operation-group">
-                <button class="btn btn-success" onclick="openFundSelectionModal('hold')">⭐ 标记持有</button>
-                <button class="btn btn-secondary" onclick="openFundSelectionModal('unhold')">☆ 取消持有</button>
-                <button class="btn btn-info" onclick="openFundSelectionModal('sector')">🏷️ 标注板块</button>
-                <button class="btn btn-warning" onclick="openFundSelectionModal('unsector')">🏷️ 删除板块</button>
-                <button class="btn btn-danger" onclick="openFundSelectionModal('delete')">🗑️ 删除基金</button>
+                <button class="btn btn-success" onclick="openFundSelectionModal('hold')"><i class="ri-star-line"></i> 标记持有</button>
+                <button class="btn btn-secondary" onclick="openFundSelectionModal('unhold')"><i class="ri-star-off-line"></i> 取消持有</button>
+                <button class="btn btn-info" onclick="openFundSelectionModal('sector')"><i class="ri-price-tag-3-line"></i> 标注板块</button>
+                <button class="btn btn-warning" onclick="openFundSelectionModal('unsector')"><i class="ri-price-tag-2-line"></i> 删除板块</button>
+                <button class="btn btn-danger" onclick="openFundSelectionModal('delete')"><i class="ri-delete-bin-line"></i> 删除基金</button>
             </div>
         </div>
     """
@@ -165,16 +165,19 @@ def enhance_fund_tab_content(content, shares_map=None):
     """
 
     # 在"近30天"列后添加"持仓份额"列
-    content = re.sub(r'(<th[^>]*>近30天</th>)',
-                   r'\1\n                    <th>持仓份额</th>',
-                   content, count=1)
+    content = re.sub(
+        r"(<th[^>]*>近30天</th>)",
+        r"\1\n                    <th>持仓份额</th>",
+        content,
+        count=1,
+    )
 
     # 在每个数据行添加份额输入框
     # 先找到所有表格行，然后在包含基金代码的行末尾添加份额输入框
     def add_shares_to_row(match):
         row_content = match.group(0)
         # 从行内容中提取第一个6位数字（基金代码）- 假设第一列是基金代码
-        code_match = re.search(r'<td[^>]*>(\d{6})</td>', row_content)
+        code_match = re.search(r"<td[^>]*>(\d{6})</td>", row_content)
         if code_match:
             fund_code = code_match.group(1)
 
@@ -188,27 +191,32 @@ def enhance_fund_tab_content(content, shares_map=None):
 
             # 根据份额值设置按钮文本和颜色
             if shares > 0:
-                button_text = '修改'
-                button_color = '#10b981'  # 绿色
+                button_text = "修改"
+                button_color = "#10b981"  # 绿色
             else:
-                button_text = '设置'
-                button_color = '#3b82f6'  # 蓝色
+                button_text = "设置"
+                button_color = "#3b82f6"  # 蓝色
 
             # 在行末添加份额设置按钮（在</tr>之前）- 去掉最后的</tr>，添加按钮后再加回
-            row_with_shares = row_content[:-5] + f'''<td>
+            row_with_shares = (
+                row_content[:-5]
+                + f"""<td>
                 <button class="shares-button" id="sharesBtn_{fund_code}"
                         onclick="openSharesModal('{fund_code}')"
                         style="padding: 6px 12px; background: {button_color}; color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 13px; transition: all 0.2s;">
                     {button_text}
                 </button>
-            </td></tr>'''
+            </td></tr>"""
+            )
             return row_with_shares
         return row_content
 
     # 匹配完整的表格行（非贪婪匹配行内容）
-    content = re.sub(r'<tr>.*?</tr>', add_shares_to_row, content, flags=re.DOTALL)
+    content = re.sub(r"<tr>.*?</tr>", add_shares_to_row, content, flags=re.DOTALL)
 
-    return file_operations + position_summary + operations_panel + add_fund_area + content
+    return (
+        file_operations + position_summary + operations_panel + add_fund_area + content
+    )
 
 
 def get_table_html(title, data, sortable_columns=None):
@@ -224,14 +232,16 @@ def get_table_html(title, data, sortable_columns=None):
     ths = []
     for i, col_name in enumerate(title):
         if i in sortable_columns:
-            ths.append(f'<th class="sortable" onclick="sortTable(this.closest(\'table\'), {i})">{col_name}</th>')
+            ths.append(
+                f'<th class="sortable" onclick="sortTable(this.closest(\'table\'), {i})">{col_name}</th>'
+            )
         else:
             ths.append(f"<th>{col_name}</th>")
 
     thead_html = f"""
     <thead>
         <tr>
-            {''.join(ths)}
+            {"".join(ths)}
         </tr>
     </thead>
     """
@@ -243,7 +253,7 @@ def get_table_html(title, data, sortable_columns=None):
 
     tbody_html = f"""
     <tbody>
-        {''.join(tbody_rows)}
+        {"".join(tbody_rows)}
     </tbody>
     """
 
@@ -266,7 +276,7 @@ def generate_holdings_cards_html(fund_data_map):
     # Filter held funds
     held_funds = []
     for code, data in fund_data_map.items():
-        if data.get('is_hold', False):
+        if data.get("is_hold", False):
             held_funds.append((code, data))
 
     if not held_funds:
@@ -274,11 +284,15 @@ def generate_holdings_cards_html(fund_data_map):
 
     cards_html = []
     for code, data in held_funds:
-        fund_name = data.get('fund_name', 'Unknown')
-        sectors = data.get('sectors', [])
+        fund_name = data.get("fund_name", "Unknown")
+        sectors = data.get("sectors", [])
 
         # Generate sector tags with icon and gray text (like delete sector popup)
-        sector_tags = f'<span style="color: #8b949e; font-size: 12px;"> 🏷️ {", ".join(sectors)}</span>' if sectors else ''
+        sector_tags = (
+            f'<span style="color: #8b949e; font-size: 12px;"> 🏷️ {", ".join(sectors)}</span>'
+            if sectors
+            else ""
+        )
 
         # Card HTML
         card_html = f"""
@@ -287,7 +301,7 @@ def generate_holdings_cards_html(fund_data_map):
                 <div class="holding-card-title">
                     <div class="holding-card-code">{code}</div>
                     <div class="holding-card-name">{fund_name}</div>
-                    {f'<div class="holding-card-sectors">{sector_tags}</div>' if sectors else ''}
+                    {f'<div class="holding-card-sectors">{sector_tags}</div>' if sectors else ""}
                 </div>
                 <div class="holding-card-badge">⭐</div>
             </div>
@@ -343,7 +357,7 @@ def generate_holdings_cards_html(fund_data_map):
             <div class="holdings-count">{len(held_funds)} Positions</div>
         </div>
         <div class="holdings-grid">
-            {''.join(cards_html)}
+            {"".join(cards_html)}
         </div>
     </div>
     """
@@ -382,17 +396,17 @@ def get_full_page_html_sidebar(tabs_data, username=None):
     # Get fund data for holdings/watchlist sections
     fund_map = {}
     for tab in tabs_data:
-        if tab['id'] == 'fund':
+        if tab["id"] == "fund":
             # Extract fund_map from fund tab - will be passed from fund_server.py
-            fund_map = tab.get('fund_map', {})
+            fund_map = tab.get("fund_map", {})
             break
 
     # Generate sections for other tabs (hidden by default)
-    other_sections_html = ''
+    other_sections_html = ""
     for tab in tabs_data:
-        if tab['id'] != 'fund':
-            tab_id = tab['id']
-            tab_title = tab['title']
+        if tab["id"] != "fund":
+            tab_id = tab["id"]
+            tab_title = tab["title"]
             other_sections_html += f'''
                 <section class="content-section hidden" id="{tab_id}Section">
                     <div class="section-header">
@@ -402,7 +416,7 @@ def get_full_page_html_sidebar(tabs_data, username=None):
                 </section>
             '''
 
-    html = f'''<!DOCTYPE html>
+    html = f"""<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
@@ -422,8 +436,8 @@ def get_full_page_html_sidebar(tabs_data, username=None):
         </div>
         <div class="navbar-menu">
             <span class="navbar-item">实时行情</span>
-            {f'<span class="navbar-item" style="color: #3b82f6;">🍎 {username}</span>' if username else ''}
-            {f'<a href="/logout" class="navbar-item" style="color: #f85149; text-decoration: none;">退出登录</a>' if username else ''}
+            {f'<span class="navbar-item" style="color: #3b82f6;">🍎 {username}</span>' if username else ""}
+            {f'<a href="/logout" class="navbar-item" style="color: #f85149; text-decoration: none;">退出登录</a>' if username else ""}
         </div>
     </nav>
 
@@ -515,7 +529,7 @@ def get_full_page_html_sidebar(tabs_data, username=None):
     <script src="/static/js/main.js"></script>
     <script src="/static/js/sidebar-nav.js"></script>
 </body>
-</html>'''
+</html>"""
 
     return html
 
@@ -533,7 +547,11 @@ def get_full_page_html(tabs_data, username=None, use_sidebar=False):
     tab_contents = []
 
     # Check if tabs_data is a list of dicts (new format) or list of strings (old format fallback)
-    if isinstance(tabs_data, list) and len(tabs_data) > 0 and isinstance(tabs_data[0], str):
+    if (
+        isinstance(tabs_data, list)
+        and len(tabs_data) > 0
+        and isinstance(tabs_data[0], str)
+    ):
         # Fallback for old format
         return f"""
         <!DOCTYPE html>
@@ -548,7 +566,7 @@ def get_full_page_html(tabs_data, username=None, use_sidebar=False):
             <div class="app-container">
                 <div class="main-content">
                     <div class="dashboard-grid">
-                        {''.join(tabs_data)}
+                        {"".join(tabs_data)}
                     </div>
                 </div>
             </div>
@@ -558,10 +576,10 @@ def get_full_page_html(tabs_data, username=None, use_sidebar=False):
         """
 
     for index, tab in enumerate(tabs_data):
-        is_active = 'active' if index == 0 else ''
-        tab_id = tab['id']
-        tab_title = tab['title']
-        content = tab['content']
+        is_active = "active" if index == 0 else ""
+        tab_id = tab["id"]
+        tab_title = tab["title"]
+        content = tab["content"]
 
         tab_headers.append(f"""
             <button class="tab-button {is_active}" onclick="openTab(event, '{tab_id}')">
@@ -583,7 +601,9 @@ def get_full_page_html(tabs_data, username=None, use_sidebar=False):
         """)
 
     # Check if we have actual data or if this is initial SSE setup
-    has_data = tabs_data and len(tabs_data) > 0 and tabs_data[0].get('content', '').strip()
+    has_data = (
+        tabs_data and len(tabs_data) > 0 and tabs_data[0].get("content", "").strip()
+    )
 
     if not has_data:
         # Return SSE-enabled loading page
@@ -606,18 +626,18 @@ def get_full_page_html(tabs_data, username=None, use_sidebar=False):
             <div class="navbar-brand">BuBu Fund LanFund助手</div>
             <div class="navbar-menu">
                 <span class="navbar-item">实时行情</span>
-                {f'<span class="navbar-item" style="color: #3b82f6;">🍎 {username}</span>' if username else ''}
-                {f'<a href="/logout" class="navbar-item" style="color: #f85149; text-decoration: none;">退出登录</a>' if username else ''}
+                {f'<span class="navbar-item" style="color: #3b82f6;">🍎 {username}</span>' if username else ""}
+                {f'<a href="/logout" class="navbar-item" style="color: #f85149; text-decoration: none;">退出登录</a>' if username else ""}
             </div>
         </nav>
         
         <div class="app-container">
             <div class="main-content">
                 <div class="tabs-header">
-                    {''.join(tab_headers)}
+                    {"".join(tab_headers)}
                 </div>
                 <div class="dashboard-grid">
-                    {''.join(tab_contents)}
+                    {"".join(tab_contents)}
                 </div>
             </div>
         </div>
@@ -831,41 +851,76 @@ def get_sse_loading_page(css_style, js_script):
 def get_sidebar_navigation_html():
     """Generate 70px sidebar with 9 section icons"""
     sections = [
-        {'id': 'news', 'icon': '📰', 'label': '快讯', 'tab_id': 'kx'},
-        {'id': 'indices', 'icon': '📊', 'label': '指数', 'tab_id': 'marker'},
-        {'id': 'gold-realtime', 'icon': '🥇', 'label': '贵金属', 'tab_id': 'real_time_gold'},
-        {'id': 'gold-history', 'icon': '📈', 'label': '金价', 'tab_id': 'gold'},
-        {'id': 'volume', 'icon': '📉', 'label': '成交量', 'tab_id': 'seven_A'},
-        {'id': 'timing', 'icon': '🔴', 'label': '分时', 'tab_id': 'A'},
-        {'id': 'funds', 'icon': '💼', 'label': '基金', 'tab_id': 'fund'},
-        {'id': 'sectors', 'icon': '🏢', 'label': '板块', 'tab_id': 'bk'},
-        {'id': 'query', 'icon': '🔍', 'label': '查询', 'tab_id': 'select_fund'},
+        {"id": "news", "icon": "ri-newspaper-line", "label": "快讯", "tab_id": "kx"},
+        {
+            "id": "indices",
+            "icon": "ri-bar-chart-2-line",
+            "label": "指数",
+            "tab_id": "marker",
+        },
+        {
+            "id": "gold-realtime",
+            "icon": "ri-vip-diamond-line",
+            "label": "贵金属",
+            "tab_id": "real_time_gold",
+        },
+        {
+            "id": "gold-history",
+            "icon": "ri-line-chart-line",
+            "label": "金价",
+            "tab_id": "gold",
+        },
+        {
+            "id": "volume",
+            "icon": "ri-bar-chart-grouped-line",
+            "label": "成交量",
+            "tab_id": "seven_A",
+        },
+        {"id": "timing", "icon": "ri-time-line", "label": "分时", "tab_id": "A"},
+        {
+            "id": "funds",
+            "icon": "ri-briefcase-4-line",
+            "label": "基金",
+            "tab_id": "fund",
+        },
+        {
+            "id": "sectors",
+            "icon": "ri-building-4-line",
+            "label": "板块",
+            "tab_id": "bk",
+        },
+        {
+            "id": "query",
+            "icon": "ri-search-2-line",
+            "label": "查询",
+            "tab_id": "select_fund",
+        },
     ]
 
     html = '<aside class="sidebar-nav" id="sidebarNav">\n'
     html += '  <div class="sidebar-icons">\n'
 
     for i, section in enumerate(sections):
-        active = ' active' if i == 6 else ''  # funds section active by default
-        html += f'''    <button class="sidebar-icon{active}" data-section="{section['id']}" data-tab-id="{section['tab_id']}">
-      <i class="icon">{section['icon']}</i>
-      <span class="icon-label">{section['label']}</span>
+        active = " active" if i == 6 else ""  # funds section active by default
+        html += f'''    <button class="sidebar-icon{active}" data-section="{section["id"]}" data-tab-id="{section["tab_id"]}">
+      <i class="{section["icon"]}" style="font-size: 20px;"></i>
+      <span class="icon-label">{section["label"]}</span>
     </button>\n'''
 
-    html += '''    <button class="sidebar-toggle" id="sidebarToggle">
-      <span>▶</span>
+    html += """    <button class="sidebar-toggle" id="sidebarToggle">
+      <span><i class="ri-arrow-right-s-line"></i></span>
       <span class="toggle-text">展开</span>
     </button>
-'''
-    html += '  </div>\n'
-    html += '</aside>\n'
+"""
+    html += "  </div>\n"
+    html += "</aside>\n"
 
     return html
 
 
-def get_header_bar_html(section_title='自选基金'):
+def get_header_bar_html(section_title="自选基金"):
     """Generate header bar with section title and market status"""
-    return f'''<header class="content-header">
+    return f"""<header class="content-header">
   <div class="header-left">
     <h1 class="section-title" id="sectionTitle">{section_title}</h1>
     <span class="market-status">
@@ -876,12 +931,12 @@ def get_header_bar_html(section_title='自选基金'):
   <div class="header-right">
     <span class="last-update" id="lastUpdate">更新于 --:--:--</span>
   </div>
-</header>'''
+</header>"""
 
 
 def get_summary_bar_html():
     """Generate 4-column summary bar (populated by JavaScript)"""
-    return '''<section class="summary-bar" id="summaryBar">
+    return """<section class="summary-bar" id="summaryBar">
   <div class="summary-card">
     <div class="summary-label">总持仓</div>
     <div class="summary-value" id="summaryTotalValue">¥0.00</div>
@@ -902,7 +957,7 @@ def get_summary_bar_html():
     <div class="summary-value" id="summaryHoldCount">0 只</div>
     <div class="summary-change neutral">已标记</div>
   </div>
-</section>'''
+</section>"""
 
 
 def generate_fund_row_html(fund_code, fund_data, is_held=True):
@@ -910,75 +965,87 @@ def generate_fund_row_html(fund_code, fund_data, is_held=True):
     import html
 
     # Extract fund data
-    name = fund_data.get('fund_name', '')
-    sectors = fund_data.get('sectors', [])
-    shares = fund_data.get('shares', 0)
+    name = fund_data.get("fund_name", "")
+    sectors = fund_data.get("sectors", [])
+    shares = fund_data.get("shares", 0)
 
     # Escape fund_code and name for safe HTML/JavaScript usage
     safe_code = html.escape(str(fund_code))
     safe_name = html.escape(str(name))
 
     # Build sector tags
-    sector_tags = ''
+    sector_tags = ""
     if is_held:
-        sector_tags += '<span class="tag tag-hold">⭐ 持有</span>'
+        sector_tags += (
+            '<span class="tag tag-hold"><i class="ri-star-fill"></i> 持有</span>'
+        )
     if sectors:
         # Display sectors with icon and gray text (like delete sector popup style)
-        safe_sectors = html.escape(', '.join(str(s) for s in sectors))
-        sector_tags += f'<span style="color: #8b949e; font-size: 12px;"> 🏷️ {safe_sectors}</span>'
+        safe_sectors = html.escape(", ".join(str(s) for s in sectors))
+        sector_tags += f'<span style="color: #8b949e; font-size: 12px;"> <i class="ri-price-tag-3-line"></i> {safe_sectors}</span>'
 
     # Shares input (only for held funds)
-    shares_html = ''
+    shares_html = ""
     if is_held:
-        shares_html = f'''<div class="metric metric-shares">
-        <span class="metric-label">持仓份额</span>
-        <input type="number" class="shares-input" id="shares_{safe_code}"
-               value="{shares}" step="0.01" min="0"
-               onchange="updateShares('{safe_code}', this.value)">
-      </div>'''
+        shares_html = (
+            f'<div class="metric metric-shares">'
+            f'<span class="metric-label">持仓份额</span>'
+            f'<input type="number" class="shares-input" id="shares_{safe_code}" '
+            f'value="{shares}" step="0.01" min="0" '
+            f"onchange=\"updateShares('{safe_code}', this.value)\">"
+            f"</div>"
+        )
 
-    return f'''<div class="fund-row" data-code="{safe_code}">
-  <div class="fund-row-main">
-    <div class="fund-info">
-      <div class="fund-code-name">
-        <span class="fund-code">{safe_code}</span>
-        <span class="fund-name">{safe_name}</span>
-      </div>
-      <div class="fund-tags">{sector_tags}</div>
-    </div>
-    <div class="fund-metrics" id="metrics_{safe_code}">
-      <!-- Metrics populated by JavaScript -->
-      <div class="metric"><span class="metric-label">净值</span><span class="metric-value">--</span></div>
-      <div class="metric"><span class="metric-label">估值增长</span><span class="metric-value">--</span></div>
-      <div class="metric"><span class="metric-label">日涨幅</span><span class="metric-value">--</span></div>
-      <div class="metric"><span class="metric-label">连涨/跌</span><span class="metric-value">--</span></div>
-      <div class="metric"><span class="metric-label">近30天</span><span class="metric-value">--</span></div>
-      {shares_html}
-    </div>
-  </div>
-  <div class="fund-row-actions">
-    <button class="btn-icon" onclick="toggleFundExpand('{safe_code}')" title="展开/收起">
-      <span>▼</span>
-    </button>
-  </div>
-</div>'''
+    return (
+        f'<div class="fund-row" data-code="{safe_code}">'
+        f'<div class="fund-row-main">'
+        f'<div class="fund-info">'
+        f'<div class="fund-code-name">'
+        f'<span class="fund-code">{safe_code}</span>'
+        f'<span class="fund-name">{safe_name}</span>'
+        f"</div>"
+        f'<div class="fund-tags">{sector_tags}</div>'
+        f"</div>"
+        f'<div class="fund-metrics" id="metrics_{safe_code}">'
+        f"<!-- Metrics populated by JavaScript -->"
+        f'<div class="metric"><span class="metric-label">净值</span><span class="metric-value">--</span></div>'
+        f'<div class="metric"><span class="metric-label">估值增长</span><span class="metric-value">--</span></div>'
+        f'<div class="metric"><span class="metric-label">日涨幅</span><span class="metric-value">--</span></div>'
+        f'<div class="metric"><span class="metric-label">连涨/跌</span><span class="metric-value">--</span></div>'
+        f'<div class="metric"><span class="metric-label">近30天</span><span class="metric-value">--</span></div>'
+        f"{shares_html}"
+        f"</div>"
+        f"</div>"
+        f'<div class="fund-row-actions">'
+        f'<button class="btn-icon" onclick="toggleFundExpand(\'{safe_code}\')" title="展开/收起">'
+        f'<span><i class="ri-arrow-down-s-line"></i></span>'
+        f"</button>"
+        f"</div>"
+        f"</div>"
+    )
 
 
 def generate_holdings_section_html(fund_map):
     """Generate Core Holdings section with held funds"""
-    held_funds = {code: data for code, data in fund_map.items() if data.get('is_hold', False)}
+    held_funds = {
+        code: data for code, data in fund_map.items() if data.get("is_hold", False)
+    }
 
-    html = '''<section class="content-section" id="holdingsSection">
+    html = (
+        """<section class="content-section" id="holdingsSection">
   <div class="section-header">
     <h2 class="section-heading">
-      <span class="heading-icon">💎</span>
+      <i class="ri-vip-diamond-line heading-icon"></i>
       核心持仓
     </h2>
     <div class="section-meta">
-      <span class="fund-count" id="holdingsCount">''' + str(len(held_funds)) + ''' 只基金</span>
+      <span class="fund-count" id="holdingsCount">"""
+        + str(len(held_funds))
+        + """ 只基金</span>
     </div>
   </div>
-  <div class="section-content" id="holdingsContent">'''
+  <div class="section-content" id="holdingsContent">"""
+    )
 
     for code, data in held_funds.items():
         html += generate_fund_row_html(code, data, is_held=True)
@@ -986,25 +1053,31 @@ def generate_holdings_section_html(fund_map):
     if not held_funds:
         html += '<div class="empty-state">暂无持仓基金</div>'
 
-    html += '  </div>\n</section>'
+    html += "  </div>\n</section>"
     return html
 
 
 def generate_watchlist_section_html(fund_map):
     """Generate Market Watchlist section with non-held funds"""
-    watchlist_funds = {code: data for code, data in fund_map.items() if not data.get('is_hold', False)}
+    watchlist_funds = {
+        code: data for code, data in fund_map.items() if not data.get("is_hold", False)
+    }
 
-    html = '''<section class="content-section" id="watchlistSection">
+    html = (
+        """<section class="content-section" id="watchlistSection">
   <div class="section-header">
     <h2 class="section-heading">
-      <span class="heading-icon">📋</span>
+      <i class="ri-list-check-2 heading-icon"></i>
       市场观察
     </h2>
     <div class="section-meta">
-      <span class="fund-count" id="watchlistCount">''' + str(len(watchlist_funds)) + ''' 只基金</span>
+      <span class="fund-count" id="watchlistCount">"""
+        + str(len(watchlist_funds))
+        + """ 只基金</span>
     </div>
   </div>
-  <div class="section-content" id="watchlistContent">'''
+  <div class="section-content" id="watchlistContent">"""
+    )
 
     for code, data in watchlist_funds.items():
         html += generate_fund_row_html(code, data, is_held=False)
@@ -1012,12 +1085,13 @@ def generate_watchlist_section_html(fund_map):
     if not watchlist_funds:
         html += '<div class="empty-state">暂无观察基金</div>'
 
-    html += '  </div>\n</section>'
+    html += "  </div>\n</section>"
     return html
 
 
 def get_css_style():
     return r"""
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.1.0/fonts/remixicon.css" rel="stylesheet"/>
     <style>
         :root {
             /* Professional Trading Terminal Theme */
@@ -3480,16 +3554,17 @@ def get_javascript_code():
 
 # ==================== 新页面布局函数 ====================
 
+
 def get_market_page_html(market_data, username=None):
     """生成市场行情页面 - 使用卡片/图表布局"""
     css_style = get_css_style()
 
     # 生成市场数据卡片
-    market_cards = ''
+    market_cards = ""
     for key, data in market_data.items():
         card_id = "card-{}".format(key)
         icon = get_market_icon(key)
-        market_cards += '''
+        market_cards += """
         <div class="market-card" id="{card_id}">
             <div class="market-card-header">
                 <h3 class="market-card-title">
@@ -3504,14 +3579,18 @@ def get_market_page_html(market_data, username=None):
                 {content}
             </div>
         </div>
-        '''.format(card_id=card_id, icon=icon, title=data['title'], content=data['content'])
+        """.format(
+            card_id=card_id, icon=icon, title=data["title"], content=data["content"]
+        )
 
-    username_display = ''
+    username_display = ""
     if username:
-        username_display = '<span class="nav-user">🍎 {username}</span>'.format(username=username)
+        username_display = '<span class="nav-user"><i class="ri-user-smile-line"></i> {username}</span>'.format(
+            username=username
+        )
         username_display += '<a href="/logout" class="nav-logout">退出登录</a>'
 
-    html = '''<!DOCTYPE html>
+    html = """<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
@@ -3833,7 +3912,11 @@ def get_market_page_html(market_data, username=None):
         }});
     </script>
 </body>
-</html>'''.format(css_style=css_style, username_display=username_display, market_cards=market_cards)
+</html>""".format(
+        css_style=css_style,
+        username_display=username_display,
+        market_cards=market_cards,
+    )
     return html
 
 
@@ -3841,12 +3924,14 @@ def get_news_page_html(news_content, username=None):
     """生成7*24快讯页面 - 简洁布局"""
     css_style = get_css_style()
 
-    username_display = ''
+    username_display = ""
     if username:
-        username_display = '<span class="nav-user">🍎 {username}</span>'.format(username=username)
+        username_display = '<span class="nav-user"><i class="ri-user-smile-line"></i> {username}</span>'.format(
+            username=username
+        )
         username_display += '<a href="/logout" class="nav-logout">退出登录</a>'
 
-    html = '''<!DOCTYPE html>
+    html = """<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
@@ -4020,13 +4105,13 @@ def get_news_page_html(news_content, username=None):
     <div class="main-container">
         <!-- 左侧导航栏 -->
         <div class="sidebar collapsed" id="sidebar">
-            <div class="sidebar-toggle" id="sidebarToggle">▶</div>
+            <div class="sidebar-toggle" id="sidebarToggle"><i class="ri-arrow-right-s-line"></i></div>
             <a href="/market" class="sidebar-item active">
-                <span class="sidebar-icon">📰</span>
+                <span class="sidebar-icon"><i class="ri-newspaper-line"></i></span>
                 <span>7*24快讯</span>
             </a>
             <a href="/market-indices" class="sidebar-item">
-                <span class="sidebar-icon">📊</span>
+                <span class="sidebar-icon"><i class="ri-bar-chart-2-line"></i></span>
                 <span>市场指数</span>
             </a>
             <a href="/precious-metals" class="sidebar-item">
@@ -4034,11 +4119,11 @@ def get_news_page_html(news_content, username=None):
                 <span>贵金属行情</span>
             </a>
             <a href="/portfolio" class="sidebar-item">
-                <span class="sidebar-icon">💼</span>
+                <span class="sidebar-icon"><i class="ri-briefcase-4-line"></i></span>
                 <span>持仓基金</span>
             </a>
             <a href="/sectors" class="sidebar-item">
-                <span class="sidebar-icon">🏢</span>
+                <span class="sidebar-icon"><i class="ri-building-4-line"></i></span>
                 <span>行业板块</span>
             </a>
         </div>
@@ -4048,7 +4133,7 @@ def get_news_page_html(news_content, username=None):
             <!-- 页面标题 -->
             <div class="page-header">
                 <h1 style="display: flex; align-items: center;">
-                    📰 7*24快讯
+                    <i class="ri-newspaper-line"></i> 7*24快讯
                     <button id="refreshBtn" onclick="refreshCurrentPage()" class="refresh-button" style="margin-left: 15px; padding: 8px 16px; background: var(--accent); color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 0.9rem; font-weight: 500; transition: all 0.2s ease; display: inline-flex; align-items: center; gap: 5px;">🔄 刷新</button>
                 </h1>
                 <p>实时追踪全球市场动态</p>
@@ -4113,7 +4198,11 @@ def get_news_page_html(news_content, username=None):
         }});
     </script>
 </body>
-</html>'''.format(css_style=css_style, username_display=username_display, news_content=news_content)
+</html>""".format(
+        css_style=css_style,
+        username_display=username_display,
+        news_content=news_content,
+    )
     return html
 
 
@@ -4121,12 +4210,14 @@ def get_precious_metals_page_html(metals_data, username=None):
     """生成贵金属行情页面"""
     css_style = get_css_style()
 
-    username_display = ''
+    username_display = ""
     if username:
-        username_display = '<span class="nav-user">🍎 {username}</span>'.format(username=username)
+        username_display = '<span class="nav-user"><i class="ri-user-smile-line"></i> {username}</span>'.format(
+            username=username
+        )
         username_display += '<a href="/logout" class="nav-logout">退出登录</a>'
 
-    html = '''<!DOCTYPE html>
+    html = """<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
@@ -4363,13 +4454,13 @@ def get_precious_metals_page_html(metals_data, username=None):
     <div class="main-container">
         <!-- 左侧导航栏 -->
         <div class="sidebar collapsed" id="sidebar">
-            <div class="sidebar-toggle" id="sidebarToggle">▶</div>
+            <div class="sidebar-toggle" id="sidebarToggle"><i class="ri-arrow-right-s-line"></i></div>
             <a href="/market" class="sidebar-item">
-                <span class="sidebar-icon">📰</span>
+                <span class="sidebar-icon"><i class="ri-newspaper-line"></i></span>
                 <span>7*24快讯</span>
             </a>
             <a href="/market-indices" class="sidebar-item">
-                <span class="sidebar-icon">📊</span>
+                <span class="sidebar-icon"><i class="ri-bar-chart-2-line"></i></span>
                 <span>市场指数</span>
             </a>
             <a href="/precious-metals" class="sidebar-item active">
@@ -4377,11 +4468,11 @@ def get_precious_metals_page_html(metals_data, username=None):
                 <span>贵金属行情</span>
             </a>
             <a href="/portfolio" class="sidebar-item">
-                <span class="sidebar-icon">💼</span>
+                <span class="sidebar-icon"><i class="ri-briefcase-4-line"></i></span>
                 <span>持仓基金</span>
             </a>
             <a href="/sectors" class="sidebar-item">
-                <span class="sidebar-icon">🏢</span>
+                <span class="sidebar-icon"><i class="ri-building-4-line"></i></span>
                 <span>行业板块</span>
             </a>
         </div>
@@ -4586,11 +4677,11 @@ def get_precious_metals_page_html(metals_data, username=None):
         }});
     </script>
 </body>
-</html>'''.format(
+</html>""".format(
         css_style=css_style,
         username_display=username_display,
-        real_time_content=metals_data.get('real_time', ''),
-        history_content=metals_data.get('history', '')
+        real_time_content=metals_data.get("real_time", ""),
+        history_content=metals_data.get("history", ""),
     )
     return html
 
@@ -4600,22 +4691,34 @@ def get_market_indices_page_html(market_charts=None, chart_data=None, username=N
     css_style = get_css_style()
     import json
 
-    username_display = ''
+    username_display = ""
     if username:
-        username_display = '<span class="nav-user">🍎 {username}</span>'.format(username=username)
+        username_display = '<span class="nav-user"><i class="ri-user-smile-line"></i> {username}</span>'.format(
+            username=username
+        )
         username_display += '<a href="/logout" class="nav-logout">退出登录</a>'
 
     # 准备图表数据JSON (optional, for future chart enhancements)
-    indices_data_json = json.dumps(chart_data.get('indices', {'labels': [], 'prices': [], 'changes': []}) if chart_data else {'labels': [], 'prices': [], 'changes': []})
-    volume_data_json = json.dumps(chart_data.get('volume', {'labels': [], 'total': [], 'sh': [], 'sz': [], 'bj': []}) if chart_data else {'labels': [], 'total': [], 'sh': [], 'sz': [], 'bj': []})
+    indices_data_json = json.dumps(
+        chart_data.get("indices", {"labels": [], "prices": [], "changes": []})
+        if chart_data
+        else {"labels": [], "prices": [], "changes": []}
+    )
+    volume_data_json = json.dumps(
+        chart_data.get(
+            "volume", {"labels": [], "total": [], "sh": [], "sz": [], "bj": []}
+        )
+        if chart_data
+        else {"labels": [], "total": [], "sh": [], "sz": [], "bj": []}
+    )
 
     # 生成市场指数HTML - 两行布局
-    market_content = '''
+    market_content = """
         <!-- 市场指数区域 -->
         <div class="market-indices-section" style="padding: 30px;">
             <div class="page-header" style="margin-bottom: 25px;">
                 <h1 style="font-size: 1.5rem; font-weight: 600; margin: 0; color: var(--text-main); display: flex; align-items: center;">
-                    📊 市场指数
+                    <i class="ri-bar-chart-2-line"></i> 市场指数
                     <button id="refreshBtn" onclick="refreshCurrentPage()" class="refresh-button" style="margin-left: 15px; padding: 8px 16px; background: var(--accent); color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 0.9rem; font-weight: 500; transition: all 0.2s ease; display: inline-flex; align-items: center; gap: 5px;">🔄 刷新</button>
                 </h1>
             </div>
@@ -4634,7 +4737,7 @@ def get_market_indices_page_html(market_charts=None, chart_data=None, username=N
                 <!-- 成交量趋势 - 表格 -->
                 <div class="chart-card" style="background-color: var(--card-bg); border: 1px solid var(--border); border-radius: 8px; overflow: hidden;">
                     <div class="chart-card-header" style="padding: 12px 15px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center;">
-                        <h3 style="margin: 0; font-size: 1rem; color: var(--text-main);">📊 成交量趋势</h3>
+                        <h3 style="margin: 0; font-size: 1rem; color: var(--text-main);"><i class="ri-bar-chart-grouped-line"></i> 成交量趋势</h3>
                     </div>
                     <div class="chart-card-content" style="padding: 15px; max-height: 400px; overflow-y: auto;">
                         {volume_content}
@@ -4642,12 +4745,12 @@ def get_market_indices_page_html(market_charts=None, chart_data=None, username=N
                 </div>
             </div>
         </div>
-    '''.format(
-        indices_content=market_charts.get('indices', ''),
-        volume_content=market_charts.get('volume', '')
+    """.format(
+        indices_content=market_charts.get("indices", ""),
+        volume_content=market_charts.get("volume", ""),
     )
 
-    html = '''<!DOCTYPE html>
+    html = """<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
@@ -4778,13 +4881,13 @@ def get_market_indices_page_html(market_charts=None, chart_data=None, username=N
     <div class="main-container">
         <!-- 左侧导航栏 -->
         <div class="sidebar collapsed" id="sidebar">
-            <div class="sidebar-toggle" id="sidebarToggle">▶</div>
+            <div class="sidebar-toggle" id="sidebarToggle"><i class="ri-arrow-right-s-line"></i></div>
             <a href="/market" class="sidebar-item">
-                <span class="sidebar-icon">📰</span>
+                <span class="sidebar-icon"><i class="ri-newspaper-line"></i></span>
                 <span>市场行情</span>
             </a>
             <a href="/market-indices" class="sidebar-item active">
-                <span class="sidebar-icon">📊</span>
+                <span class="sidebar-icon"><i class="ri-bar-chart-2-line"></i></span>
                 <span>市场指数</span>
             </a>
             <a href="/precious-metals" class="sidebar-item">
@@ -4792,11 +4895,11 @@ def get_market_indices_page_html(market_charts=None, chart_data=None, username=N
                 <span>贵金属行情</span>
             </a>
             <a href="/portfolio" class="sidebar-item">
-                <span class="sidebar-icon">💼</span>
+                <span class="sidebar-icon"><i class="ri-briefcase-4-line"></i></span>
                 <span>持仓基金</span>
             </a>
             <a href="/sectors" class="sidebar-item">
-                <span class="sidebar-icon">🏢</span>
+                <span class="sidebar-icon"><i class="ri-building-4-line"></i></span>
                 <span>行业板块</span>
             </a>
         </div>
@@ -4866,44 +4969,52 @@ def get_market_indices_page_html(market_charts=None, chart_data=None, username=N
         }});
     </script>
 </body>
-</html>'''.format(
+</html>""".format(
         css_style=css_style,
         username_display=username_display,
-        market_content=market_content
+        market_content=market_content,
     )
     return html
 
 
-def get_portfolio_page_html(fund_content, fund_map, market_charts=None, chart_data=None, username=None):
+def get_portfolio_page_html(
+    fund_content, fund_map, market_charts=None, chart_data=None, username=None
+):
     """生成持仓基金页面"""
     css_style = get_css_style()
     import json
 
-    username_display = ''
+    username_display = ""
     if username:
-        username_display = '<span class="nav-user">🍎 {username}</span>'.format(username=username)
+        username_display = '<span class="nav-user"><i class="ri-user-smile-line"></i> {username}</span>'.format(
+            username=username
+        )
         username_display += '<a href="/logout" class="nav-logout">退出登录</a>'
 
     # 准备图表数据JSON
-    timing_data_json = json.dumps(chart_data.get('timing', {'labels': [], 'prices': [], 'volumes': []}) if chart_data else {'labels': [], 'prices': [], 'volumes': []})
+    timing_data_json = json.dumps(
+        chart_data.get("timing", {"labels": [], "prices": [], "volumes": []})
+        if chart_data
+        else {"labels": [], "prices": [], "volumes": []}
+    )
 
     # 生成市场图表HTML - 只保留上证分时
-    market_charts_html = '''
+    market_charts_html = """
         <!-- 市场指数区域 -->
         <div class="market-charts-section" style="margin-bottom: 30px;">
             <!-- 上证分时 - 单独一行，使用Chart.js -->
             <div class="chart-card" style="background-color: var(--card-bg); border: 1px solid var(--border); border-radius: 8px; overflow: hidden;">
                 <div class="chart-card-header" style="padding: 12px 15px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center;">
-                    <h3 id="timingChartTitle" style="margin: 0; font-size: 1rem; color: var(--text-main);">📉 上证分时</h3>
+                    <h3 id="timingChartTitle" style="margin: 0; font-size: 1rem; color: var(--text-main);"><i class="ri-time-line"></i> 上证分时</h3>
                 </div>
                 <div class="chart-card-content" style="padding: 15px; height: 300px;">
                     <canvas id="timingChart"></canvas>
                 </div>
             </div>
         </div>
-    '''
+    """
 
-    html = '''<!DOCTYPE html>
+    html = """<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
@@ -5086,13 +5197,13 @@ def get_portfolio_page_html(fund_content, fund_map, market_charts=None, chart_da
     <div class="main-container">
         <!-- 左侧导航栏 -->
         <div class="sidebar collapsed" id="sidebar">
-            <div class="sidebar-toggle" id="sidebarToggle">▶</div>
+            <div class="sidebar-toggle" id="sidebarToggle"><i class="ri-arrow-right-s-line"></i></div>
             <a href="/market" class="sidebar-item">
-                <span class="sidebar-icon">📰</span>
+                <span class="sidebar-icon"><i class="ri-newspaper-line"></i></span>
                 <span>7*24快讯</span>
             </a>
             <a href="/market-indices" class="sidebar-item">
-                <span class="sidebar-icon">📊</span>
+                <span class="sidebar-icon"><i class="ri-bar-chart-2-line"></i></span>
                 <span>市场指数</span>
             </a>
             <a href="/precious-metals" class="sidebar-item">
@@ -5100,11 +5211,11 @@ def get_portfolio_page_html(fund_content, fund_map, market_charts=None, chart_da
                 <span>贵金属行情</span>
             </a>
             <a href="/portfolio" class="sidebar-item active">
-                <span class="sidebar-icon">💼</span>
+                <span class="sidebar-icon"><i class="ri-briefcase-4-line"></i></span>
                 <span>持仓基金</span>
             </a>
             <a href="/sectors" class="sidebar-item">
-                <span class="sidebar-icon">🏢</span>
+                <span class="sidebar-icon"><i class="ri-building-4-line"></i></span>
                 <span>行业板块</span>
             </a>
         </div>
@@ -5114,7 +5225,7 @@ def get_portfolio_page_html(fund_content, fund_map, market_charts=None, chart_da
             <!-- 页面标题 -->
             <div class="portfolio-header">
                 <h1>
-                    💼 持仓基金
+                    <i class="ri-briefcase-4-line"></i> 持仓基金
                     <button id="refreshBtn" onclick="refreshCurrentPage()" class="refresh-button">🔄 刷新</button>
                 </h1>
             </div>
@@ -5154,7 +5265,7 @@ def get_portfolio_page_html(fund_content, fund_map, market_charts=None, chart_da
             <!-- 免责声明 -->
             <div style="margin-bottom: 20px; padding: 12px 15px; background: rgba(255, 193, 7, 0.1); border: 1px solid rgba(255, 193, 7, 0.3); border-radius: 8px; font-size: 0.85rem; color: var(--text-dim);">
                 <p style="margin: 0; line-height: 1.5;">
-                    <strong style="color: #ffc107;">⚠️ 免责声明</strong>：
+                    <strong style="color: #ffc107;"><i class="ri-alert-line"></i> 免责声明</strong>：
                     预估收益根据您输入的持仓份额与实时估值计算得出，仅供参考。
                     实际收益以基金公司最终结算为准，可能因份额确认时间、分红方式、费用扣除等因素存在偏差。
                     投资有风险，入市需谨慎。
@@ -5311,7 +5422,7 @@ def get_portfolio_page_html(fund_content, fund_map, market_charts=None, chart_da
             const titleElement = document.getElementById('timingChartTitle');
             if (titleElement) {{
                 titleElement.style.color = titleColor;
-                titleElement.innerHTML = '📉 上证分时 <span style="font-size:0.9em;">' +
+                titleElement.innerHTML = '<i class="ri-time-line"></i> 上证分时 <span style="font-size:0.9em;">' +
                     (lastPct >= 0 ? '+' : '') + lastPct.toFixed(2) + '% (' + lastPrice.toFixed(2) + ')</span>';
             }}
 
@@ -5445,35 +5556,45 @@ def get_portfolio_page_html(fund_content, fund_map, market_charts=None, chart_da
         }}
     </script>
 </body>
-</html>'''.format(css_style=css_style, username_display=username_display, market_charts_html=market_charts_html, fund_content=fund_content, timing_data_json=timing_data_json)
+</html>""".format(
+        css_style=css_style,
+        username_display=username_display,
+        market_charts_html=market_charts_html,
+        fund_content=fund_content,
+        timing_data_json=timing_data_json,
+    )
     return html
 
 
 def get_market_icon(key):
     """获取市场数据的图标"""
     icons = {
-        'kx': '📰',
-        'marker': '🌍',
-        'real_time_gold': '🥇',
-        'gold': '📈',
-        'seven_A': '📊',
-        'A': '📉',
-        'bk': '🏢',
-        'select_fund': '🔍'
+        "kx": '<i class="ri-newspaper-line"></i>',
+        "marker": '<i class="ri-earth-line"></i>',
+        "real_time_gold": '<i class="ri-vip-diamond-line"></i>',
+        "gold": '<i class="ri-line-chart-line"></i>',
+        "seven_A": '<i class="ri-bar-chart-grouped-line"></i>',
+        "A": '<i class="ri-bar-chart-box-line"></i>',
+        "bk": '<i class="ri-building-4-line"></i>',
+        "select_fund": '<i class="ri-search-2-line"></i>',
     }
-    return icons.get(key, '📊')
+    return icons.get(key, '<i class="ri-bar-chart-2-line"></i>')
 
 
-def get_sectors_page_html(sectors_content, select_fund_content, fund_map, username=None):
+def get_sectors_page_html(
+    sectors_content, select_fund_content, fund_map, username=None
+):
     """生成行业板块基金查询页面"""
     css_style = get_css_style()
 
-    username_display = ''
+    username_display = ""
     if username:
-        username_display = '<span class="nav-user">🍎 {username}</span>'.format(username=username)
+        username_display = '<span class="nav-user"><i class="ri-user-smile-line"></i> {username}</span>'.format(
+            username=username
+        )
         username_display += '<a href="/logout" class="nav-logout">退出登录</a>'
 
-    html = '''<!DOCTYPE html>
+    html = """<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
@@ -5684,13 +5805,13 @@ def get_sectors_page_html(sectors_content, select_fund_content, fund_map, userna
     <div class="main-container">
         <!-- 左侧导航栏 -->
         <div class="sidebar collapsed" id="sidebar">
-            <div class="sidebar-toggle" id="sidebarToggle">▶</div>
+            <div class="sidebar-toggle" id="sidebarToggle"><i class="ri-arrow-right-s-line"></i></div>
             <a href="/market" class="sidebar-item">
-                <span class="sidebar-icon">📰</span>
+                <span class="sidebar-icon"><i class="ri-newspaper-line"></i></span>
                 <span>7*24快讯</span>
             </a>
             <a href="/market-indices" class="sidebar-item">
-                <span class="sidebar-icon">📊</span>
+                <span class="sidebar-icon"><i class="ri-bar-chart-2-line"></i></span>
                 <span>市场指数</span>
             </a>
             <a href="/precious-metals" class="sidebar-item">
@@ -5698,11 +5819,11 @@ def get_sectors_page_html(sectors_content, select_fund_content, fund_map, userna
                 <span>贵金属行情</span>
             </a>
             <a href="/portfolio" class="sidebar-item">
-                <span class="sidebar-icon">💼</span>
+                <span class="sidebar-icon"><i class="ri-briefcase-4-line"></i></span>
                 <span>持仓基金</span>
             </a>
             <a href="/sectors" class="sidebar-item active">
-                <span class="sidebar-icon">🏢</span>
+                <span class="sidebar-icon"><i class="ri-building-4-line"></i></span>
                 <span>行业板块</span>
             </a>
         </div>
@@ -5712,10 +5833,10 @@ def get_sectors_page_html(sectors_content, select_fund_content, fund_map, userna
             <!-- Tab 切换按钮 -->
             <div class="tab-buttons" style="display: flex; gap: 10px; margin-bottom: 20px;">
                 <button class="tab-button active" onclick="switchTab('sectors')" id="tab-btn-sectors">
-                    🏢 行业板块
+                    <i class="ri-building-4-line"></i> 行业板块
                 </button>
                 <button class="tab-button" onclick="switchTab('query')" id="tab-btn-query">
-                    🔍 板块基金查询
+                    <i class="ri-search-2-line"></i> 板块基金查询
                 </button>
             </div>
 
@@ -5723,7 +5844,7 @@ def get_sectors_page_html(sectors_content, select_fund_content, fund_map, userna
             <div id="tab-sectors" class="tab-content active">
                 <div class="page-header">
                     <h1 style="display: flex; align-items: center;">
-                        🏢 行业板块
+                        <i class="ri-building-4-line"></i> 行业板块
                         <button id="refreshBtn" onclick="refreshCurrentPage()" class="refresh-button" style="margin-left: 15px; padding: 8px 16px; background: var(--accent); color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 0.9rem; font-weight: 500; transition: all 0.2s ease; display: inline-flex; align-items: center; gap: 5px;">🔄 刷新</button>
                     </h1>
                     <p>查看各行业板块的市场表现</p>
@@ -5737,7 +5858,7 @@ def get_sectors_page_html(sectors_content, select_fund_content, fund_map, userna
             <div id="tab-query" class="tab-content">
                 <div class="page-header">
                     <h1 style="display: flex; align-items: center;">
-                        🔍 板块基金查询
+                        <i class="ri-search-2-line"></i> 板块基金查询
                         <button id="refreshBtn" onclick="refreshCurrentPage()" class="refresh-button" style="margin-left: 15px; padding: 8px 16px; background: var(--accent); color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 0.9rem; font-weight: 500; transition: all 0.2s ease; display: inline-flex; align-items: center; gap: 5px;">🔄 刷新</button>
                     </h1>
                     <p>查询特定板块的基金产品</p>
@@ -5837,11 +5958,10 @@ def get_sectors_page_html(sectors_content, select_fund_content, fund_map, userna
         }});
     </script>
 </body>
-</html>'''.format(
+</html>""".format(
         css_style=css_style,
         username_display=username_display,
         sectors_content=sectors_content,
-        select_fund_content=select_fund_content
+        select_fund_content=select_fund_content,
     )
     return html
-

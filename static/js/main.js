@@ -251,8 +251,8 @@
                        style="width: 18px; height: 18px; cursor: pointer;" onclick="event.stopPropagation();">
                 <div style="flex: 1;">
                     <div style="font-weight: 600;">${fund.code} - ${fund.name}</div>
-                    ${fund.is_hold ? '<span style="color: #667eea; font-size: 12px;">⭐ 持有</span>' : ''}
-                    ${fund.sectors && fund.sectors.length > 0 ? `<span style="color: #8b949e; font-size: 12px;"> 🏷️ ${fund.sectors.join(', ')}</span>` : ''}
+                    ${fund.is_hold ? '<span style="color: #667eea; font-size: 12px;"><i class="ri-star-fill"></i> 持有</span>' : ''}
+                    ${fund.sectors && fund.sectors.length > 0 ? `<span style="color: #8b949e; font-size: 12px;"> <i class="ri-price-tag-3-line"></i> ${fund.sectors.join(', ')}</span>` : ''}
                 </div>
             </div>
         `).join('');
